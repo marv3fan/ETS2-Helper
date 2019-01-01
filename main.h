@@ -9,6 +9,7 @@
 std::vector<Country> Countries;
 std::vector<City> Cities;
 
+bool PrintMenu();
 void PopulateCountries();
 void PopulateCities();
 void CreateCity(const char*, const char*);

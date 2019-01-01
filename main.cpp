@@ -14,8 +14,49 @@ using namespace std;
 
 int main()
 {
-    PopulateCountries();
-    PopulateCities();
+    bool ExitRequested = false;
+
+    while (!ExitRequested){
+        ExitRequested = PrintMenu();
+    }
+
+    cout << endl << "Exiting..." << endl;
+}
+
+bool PrintMenu()
+{
+    int menuChoice = 0;
+
+    cout << "*******Main Menu*******" << endl;
+    cout << "(1): Populate Map Data" << endl;
+    cout << "(2): Print Current Cities" << endl;
+    cout << "(3): Exit" << endl;
+    cin >> menuChoice;
+
+    switch(menuChoice)
+    {
+    case 1:
+        PopulateCountries();
+        PopulateCities();
+        break;
+    case 2:
+        for(Country c : Countries)
+        {
+            for(City y: c.CountryCities)
+            {
+                cout << y.Name << ", " << c.Name << endl;
+            }
+        }
+        break;
+    case 3:
+        return true;
+        break;
+    default:
+        cout << "ERROR! You have selected an invalid choice." << endl;
+        break;
+    }
+
+    return false;
 }
 
 void PopulateCountries()
