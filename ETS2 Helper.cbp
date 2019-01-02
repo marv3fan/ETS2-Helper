@@ -37,6 +37,8 @@
 		<Unit filename="City.h" />
 		<Unit filename="Country.cpp" />
 		<Unit filename="Country.h" />
+		<Unit filename="Geography.cpp" />
+		<Unit filename="Geography.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="main.h" />
 		<Extensions>

@@ -1,27 +1,31 @@
 # depslib dependency file v1.0
-1546408260 source:/usr/src/marv3fan/ETS2 Helper/main.cpp
+1546414221 source:/usr/src/marv3fan/ETS2 Helper/main.cpp
 	<iostream>
 	<vector>
-	<cstring>
-	<string>
-	<curl/curl.h>
-	<rapidjson/document.h>
 	"main.h"
 	"Country.h"
 	"City.h"
+	"Geography.h"
 
-1546406889 /usr/src/marv3fan/ETS2 Helper/main.h
+1546409382 /usr/src/marv3fan/ETS2 Helper/main.h
 	<vector>
 	"Country.h"
 	"City.h"
 
-1546409234 /usr/src/marv3fan/ETS2 Helper/Country.h
+1546409411 /usr/src/marv3fan/ETS2 Helper/Country.h
 	<vector>
 	"City.h"
 
-1546409234 /usr/src/marv3fan/ETS2 Helper/City.h
+1546409411 /usr/src/marv3fan/ETS2 Helper/City.h
 	"Country.h"
 
 1546102143 source:/usr/src/marv3fan/ETS2 Helper/Country.cpp
 	"Country.h"
+
+1546412851 source:/usr/src/marv3fan/ETS2 Helper/Geography.cpp
+	"Geography.h"
+	<math.h>
+
+1546412302 /usr/src/marv3fan/ETS2 Helper/Geography.h
+	"City.h"
 
