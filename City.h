@@ -10,11 +10,11 @@ class City
     public:
         const char* Name;
         const Country &CityCountry;
+        const double Latitude;
+        const double Longitude;
 
-        double Latitude = 0.0000000;
-        double Longitude = 0.0000000;
-        City(const char* CityName, Country &InCountry)
-            : Name(CityName), CityCountry(InCountry)
+        City(const char* CityName, Country &InCountry, double Lat, double Lon)
+            : Name(CityName), CityCountry(InCountry), Latitude(Lat), Longitude(Lon)
             {}
 };
 

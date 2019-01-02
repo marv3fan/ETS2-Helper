@@ -12,6 +12,5 @@ std::vector<City> Cities;
 bool PrintMenu();
 void PopulateCountries();
 void PopulateCities();
-void CreateCity(const char*, const char*);
-void Geocode(City*);
+void CreateCity(const char*, const char*, double, double);
 #endif // MAIN_H_INCLUDED
