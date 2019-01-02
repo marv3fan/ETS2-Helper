@@ -23,12 +23,13 @@ int main()
 bool PrintMenu()
 {
     int menuChoice = 0;
-
+    cout << endl;
     cout << "*******Main Menu*******" << endl;
     cout << "(1): Populate Map Data" << endl;
     cout << "(2): Print Current Cities" << endl;
     cout << "(3): Save and Exit" << endl;
     cout << "(4): Exit without Save" << endl;
+    cout << endl;
     cin >> menuChoice;
 
     switch(menuChoice)
@@ -36,6 +37,7 @@ bool PrintMenu()
     case 1:
         PopulateCountries();
         PopulateCities();
+        cout << endl << "Created " << Cities.size() << " cities in " << Countries.size() << " countries." << endl;
         break;
     case 2:
         //TODO: We need to clear the console here.
