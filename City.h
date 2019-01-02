@@ -6,16 +6,16 @@ class Country;
 
 class City
 {
-    private:
-    public:
-        const char* Name;
-        const Country &CityCountry;
-        const double Latitude;
-        const double Longitude;
+private:
+public:
+    const char* Name;
+    const Country &CityCountry;
+    const double Latitude;
+    const double Longitude;
 
-        City(const char* CityName, Country &InCountry, double Lat, double Lon)
-            : Name(CityName), CityCountry(InCountry), Latitude(Lat), Longitude(Lon)
-            {}
+    City(const char* CityName, Country &InCountry, double Lat, double Lon)
+        : Name(CityName), CityCountry(InCountry), Latitude(Lat), Longitude(Lon)
+    {}
 };
 
 #endif // CITY_H_INCLUDED

@@ -14,6 +14,6 @@ public:
     void AddCity(City& InCity);
     Country(const char* CountryName)
         : Name(CountryName)
-        {}
+    {}
 };
 #endif // COUNTRY_H_INCLUDED

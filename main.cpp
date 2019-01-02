@@ -12,7 +12,8 @@ int main()
 {
     bool ExitRequested = false;
 
-    while (!ExitRequested){
+    while (!ExitRequested)
+    {
         ExitRequested = PrintMenu();
     }
 
