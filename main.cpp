@@ -30,7 +30,8 @@ bool PrintMenu()
     cout << "*******Main Menu*******" << endl;
     cout << "(1): Populate Map Data" << endl;
     cout << "(2): Print Current Cities" << endl;
-    cout << "(3): Exit" << endl;
+    cout << "(3): Save and Exit" << endl;
+    cout << "(4): Exit without Save" << endl;
     cin >> menuChoice;
 
     switch(menuChoice)
@@ -49,6 +50,11 @@ bool PrintMenu()
         }
         break;
     case 3:
+        //TODO: Include code to serialize cities and countries.
+        return true;
+        break;
+    case 4:
+        //We need to create a confirmation, should be pretty simple... might wanna look at clearing the console, first
         return true;
         break;
     default:
