@@ -34,9 +34,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="City.cpp" />
 		<Unit filename="City.h" />
 		<Unit filename="Country.cpp" />
 		<Unit filename="Country.h" />
+		<Unit filename="Garage.h" />
 		<Unit filename="Geography.cpp" />
 		<Unit filename="Geography.h" />
 		<Unit filename="main.cpp" />
