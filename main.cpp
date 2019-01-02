@@ -1,9 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <cstring>
-#include <string>
-#include <curl/curl.h>
-#include <rapidjson/document.h>
 
 #include "main.h"
 #include "Country.h"
