@@ -40,6 +40,7 @@ bool PrintMenu()
         PopulateCities();
         break;
     case 2:
+        //TODO: We need to clear the console here.
         for(Country c : Countries)
         {
             for(City y: c.CountryCities)
