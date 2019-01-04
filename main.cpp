@@ -49,10 +49,26 @@ bool PrintMenu()
                 cout << endl;
                 cout << y.Name << ", " << c.Name << endl;
                 cout << y.Latitude << " " << y.Longitude << endl;
-                if (y.GarageType() != Garage::GarageType::NotAllowed)
+
+                switch(y.GarageType())
                 {
-                    cout << "Garage Allowed" << endl;
+                case Garage::GarageType::None:
+                    cout << "No Garage" << endl;
+                    break;
+                case Garage::GarageType::NotAllowed:
+                    cout << "Garage Not Allowed" << endl;
+                    break;
+                case Garage::GarageType::Tiny:
+                    cout << "Tiny Garage" << endl;
+                    break;
+                case Garage::GarageType::Small:
+                    cout << "Small Garage" << endl;
+                    break;
+                case Garage::GarageType::Large:
+                    cout << "Large Garage" << endl;
+                    break;
                 }
+
                 cout << endl;
             }
         }
