@@ -32,7 +32,7 @@ bool PrintMenu()
     cout << endl;
     cout << "*******Main Menu*******" << endl;
     cout << "(1): Populate Cities with Default Data" << endl;
-    cout << "(2): Populate Citeis with Saved Data" << endl;
+    cout << "(2): Populate Cities with Saved Data" << endl;
     cout << "(3): Print Current Cities" << endl;
     cout << "(4): Save" << endl;
     cout << "(5): Save and Exit" << endl;
