@@ -1,6 +1,5 @@
 #include "City.h"
 #include <fstream>
-#include <cstring>
 
 Garage::GarageType City::GarageType()
 {
