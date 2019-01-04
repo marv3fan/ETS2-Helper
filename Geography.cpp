@@ -1,5 +1,7 @@
-#include "Geography.h"
 #include <math.h>
+#include "City.h"
+#include "Geography.h"
+
 const static double EarthRadiusKm = 6372.8;
 
 

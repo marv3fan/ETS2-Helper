@@ -1,5 +1,4 @@
 #include "City.h"
-#include "Garage.h"
 #include <fstream>
 #include <cstring>
 
@@ -11,7 +10,7 @@ Garage::GarageType City::GarageType()
 void City::Serialize(ofstream& savefile)
 {
     savefile << Name << '\n';
-    savefile << CityCountry.Name << '\n';
+    savefile << CountryName << '\n';
     savefile << Latitude << '\n';
     savefile << Longitude << '\n';
     savefile << garageType << '\n';

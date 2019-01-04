@@ -5,7 +5,8 @@
 
 #include "Country.h"
 #include "City.h"
-#include "Garage.h"
+
+class Garage;
 
 std::vector<Country> Countries;
 std::vector<City> Cities;

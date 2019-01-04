@@ -4,13 +4,10 @@
 #include <string>
 
 #include "main.h"
-#include "Country.h"
-#include "City.h"
-#include "Garage.h"
 
 using namespace std;
 
-string CitySaveFile = "Cities.dat";
+const string CitySaveFile = "Cities.dat";
 
 int main()
 {
@@ -333,7 +330,7 @@ void CreateCity(string Name, string InCountry, double Lat, double Lon, Garage::G
     {
         if(Countries[i].Name == InCountry)
         {
-            City ReturnCity(Name, Countries[i], Lat, Lon, garageType);
+            City ReturnCity(Name, InCountry, Lat, Lon, garageType);
             Cities.push_back(ReturnCity);
             Countries[i].AddCity(Cities.back());
             return;
