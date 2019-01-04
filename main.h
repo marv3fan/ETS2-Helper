@@ -13,6 +13,8 @@ std::vector<City> Cities;
 bool PrintMenu();
 void PopulateCountries();
 void PopulateCities();
-void CreateCity(const char*, const char*, double, double);
-void CreateCity(const char*, const char*, double, double, Garage::GarageType);
+void CreateCity(string, string, double, double);
+void CreateCity(string, string, double, double, Garage::GarageType);
+void Serialize();
+void Deserialize();
 #endif // MAIN_H_INCLUDED

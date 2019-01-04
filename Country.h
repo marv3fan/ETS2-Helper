@@ -1,18 +1,22 @@
 #ifndef COUNTRY_H_INCLUDED
 #define COUNTRY_H_INCLUDED
-#include <vector>
 
+#include <vector>
+#include <string>
 #include "City.h"
+
+using namespace std;
+
 class City;
 
 class Country
 {
 public:
-    std::vector<City> CountryCities;
-    const char* Name;
+    vector<City> CountryCities;
+    string Name;
 
     void AddCity(City& InCity);
-    Country(const char* CountryName)
+    Country(string CountryName)
         : Name(CountryName)
     {}
 };

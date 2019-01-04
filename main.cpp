@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <string>
 
 #include "main.h"
 #include "Country.h"
@@ -8,9 +10,12 @@
 
 using namespace std;
 
+string CitySaveFile = "Cities.dat";
 
 int main()
 {
+    PopulateCountries();
+
     bool ExitRequested = false;
 
     while (!ExitRequested)
@@ -26,21 +31,26 @@ bool PrintMenu()
     int menuChoice = 0;
     cout << endl;
     cout << "*******Main Menu*******" << endl;
-    cout << "(1): Populate Map Data" << endl;
-    cout << "(2): Print Current Cities" << endl;
-    cout << "(3): Save and Exit" << endl;
-    cout << "(4): Exit without Save" << endl;
+    cout << "(1): Populate Cities with Default Data" << endl;
+    cout << "(2): Populate Citeis with Saved Data" << endl;
+    cout << "(3): Print Current Cities" << endl;
+    cout << "(4): Save" << endl;
+    cout << "(5): Save and Exit" << endl;
+    cout << "(6): Exit without Save" << endl;
     cout << endl;
     cin >> menuChoice;
 
     switch(menuChoice)
     {
     case 1:
-        PopulateCountries();
         PopulateCities();
         cout << endl << "Created " << Cities.size() << " cities in " << Countries.size() << " countries." << endl;
         break;
     case 2:
+        Deserialize();
+        cout << endl << "Created " << Cities.size() << " cities in " << Countries.size() << " countries." << endl;
+        break;
+    case 3:
         //TODO: We need to clear the console here.
         for(Country c : Countries)
         {
@@ -73,14 +83,18 @@ bool PrintMenu()
             }
         }
         break;
-    case 3:
-        //TODO: Include code to serialize cities and countries.
-        return true;
-        break;
     case 4:
+        //TODO: Include code to serialize cities and countries.
+        Serialize();
+        break;
+    case 5:
         //We need to create a confirmation, should be pretty simple... might wanna look at clearing the console, first
+        Serialize();
         return true;
         break;
+    case 6:
+        //We need a confirmation
+        return true;
     default:
         cout << "ERROR! You have selected an invalid choice." << endl;
         break;
@@ -308,12 +322,12 @@ void PopulateCities()
 }
 
 
-void CreateCity(const char* Name, const char* InCountry, double Lat, double Lon)
+void CreateCity(string Name, string InCountry, double Lat, double Lon)
 {
     CreateCity(Name, InCountry, Lat, Lon, Garage::GarageType::None);
 }
 
-void CreateCity(const char* Name, const char* InCountry, double Lat, double Lon, Garage::GarageType garageType)
+void CreateCity(string Name, string InCountry, double Lat, double Lon, Garage::GarageType garageType)
 {
     for(uint i = 0; i < Countries.size(); i++)
     {
@@ -328,3 +342,76 @@ void CreateCity(const char* Name, const char* InCountry, double Lat, double Lon,
     throw "City's Country Not Found!";
 }
 
+void Serialize()
+{
+    cout << endl << "Saving City data..." << endl;
+
+    ofstream savefile;
+    savefile.open (CitySaveFile);
+
+    if (savefile.is_open())
+    {
+        for (City c: Cities)
+        {
+            c.Serialize(savefile);
+        }
+
+        savefile.close();
+    }
+    else
+    {
+        throw "Error! File not open";
+    }
+}
+
+void Deserialize()
+{
+    string line;
+    ifstream savefile;
+    savefile.open(CitySaveFile);
+    if (savefile.is_open())
+    {
+        cout << "Opened save file..." << endl;
+
+        int linenumber = 1;
+
+        string fileCityName;
+        string fileCountryName;
+        double fileLatitude;
+        double fileLongitude;
+        Garage::GarageType fileGarageType;
+
+        while (getline(savefile, line)){
+                switch(linenumber){
+                case 1:
+                    fileCityName = line;
+                    linenumber++;
+                    break;
+                case 2:
+                    fileCountryName = line;
+                    linenumber++;
+                    break;
+                case 3:
+                    fileLatitude = stod(line);
+                    linenumber++;
+                    break;
+                case 4:
+                    fileLongitude = stod(line);
+                    linenumber++;
+                    break;
+                case 5:
+                    //This line casts the integer returned from parsing the line from the file string to int using stoi, and then casts that integer to the GarageType
+                    fileGarageType = static_cast<Garage::GarageType>(stoi(line));
+                    CreateCity(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType);
+                    linenumber = 1;
+                    break;
+                default:
+                    throw "Error reading from save file";
+                }
+            }
+    }
+    else
+    {
+        throw "Error! File not open";
+    }
+}
