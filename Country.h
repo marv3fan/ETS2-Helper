@@ -3,17 +3,17 @@
 
 #include <vector>
 #include <string>
-#include "City.h"
 
 using namespace std;
-
+class City;
 class Country
 {
 public:
-    vector<City> CountryCities;
+    vector<City*> CountryCities;
     string Name;
 
-    void AddCity(City& InCity);
+    void AddCity(City* InCity);
+
     Country(string CountryName)
         : Name(CountryName)
     {}

@@ -17,12 +17,11 @@ public:
     const double Latitude;
     const double Longitude;
 
-    City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
-        : garageType(GarageType), Name(CityName), CountryName(InCountry), Latitude(Lat), Longitude(Lon)
-    {}
+    City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType = Garage::GarageType::None);
 
     Garage::GarageType GarageType();
     void Serialize(ofstream&);
+    void NotifyCountry();
 };
 
 #endif // CITY_H_INCLUDED
