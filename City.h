@@ -16,12 +16,14 @@ public:
     string CountryName;
     const double Latitude;
     const double Longitude;
+    double DistanceFromGarage = 200000;
 
     City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType = Garage::GarageType::None);
 
     Garage::GarageType GarageType();
     void Serialize(ofstream&);
     void NotifyCountry();
+    void ChangeGarage();
 };
 
 #endif // CITY_H_INCLUDED

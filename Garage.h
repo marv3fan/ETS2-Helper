@@ -6,7 +6,7 @@ class Garage
 public:
     enum GarageType
     {
-        NotAllowed,
+        NotAllowed = 1,
         None,
         Tiny,
         Small,
