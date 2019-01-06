@@ -12,6 +12,8 @@ using namespace std;
 const string CitySaveFile = "Cities.dat";
 std::vector<Country*> Countries;
 std::vector<City*> Cities;
+std::vector<City*> GarageCities;
+std::vector<City*> NoGarageCities;
 
 int main()
 {
@@ -114,6 +116,7 @@ bool PrintMenu()
     return false;
 }
 
+//TODO: Refactor this to a static method in the Country class
 void PopulateCountries()
 {
     Countries.push_back(new Country("Austria"));
@@ -139,6 +142,8 @@ void PopulateCountries()
     Countries.push_back(new Country("United Kingdom"));
 }
 
+
+//TODO: Refactor this to a static method in the City class
 void PopulateCities()
 {
     Cities.push_back(new City("Aalborg", "Denmark", 57.0482, 9.91939));
@@ -334,6 +339,7 @@ void PopulateCities()
     for (City* c : Cities)
     {
         c->NotifyCountry();
+        c->UpdateGarageVectors();
     }
 }
 
@@ -406,6 +412,12 @@ void Deserialize()
                 throw "Error reading from save file";
             }
         }
+        for (City* c : Cities)
+        {
+            c->NotifyCountry();
+            c->UpdateGarageVectors();
+        }
+
     }
     else
     {

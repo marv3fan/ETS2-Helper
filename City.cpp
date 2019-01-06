@@ -4,7 +4,10 @@
 #include <vector>
 #include <iostream>
 
-extern std::vector<Country*> Countries;
+extern vector<Country*> Countries;
+extern vector<City*> GarageCities;
+extern vector<City*> NoGarageCities;
+
 
 City::City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
     : garageType(GarageType), Name(CityName), CountryName(InCountry), Latitude(Lat), Longitude(Lon)
@@ -13,9 +16,6 @@ City::City(string CityName, string InCountry, double Lat, double Lon, Garage::Ga
     {
         DistanceFromGarage = 0;
     }
-
-    //TODO we need a vector of cities with garages.
-    //TODO we need a vector of cities without garages.
 
     for(Country* c : Countries)
     {
@@ -98,30 +98,79 @@ void City::ChangeGarage()
             cout << "Removed garage from " << Name << endl;
             validRequest = true;
             garageType = Garage::GarageType::None;
+            UpdateGarageVectors();
+            //TODO: Change the distance to the function call to get Distances from garages;
             DistanceFromGarage = 200000;
             break;
         case 3:
             cout << "Garage type in " << Name << " now Tiny" << endl;
             validRequest = true;
             garageType = Garage::GarageType::Tiny;
+            UpdateGarageVectors();
             DistanceFromGarage = 0;
             break;
         case 4:
             cout << "Garage type in " << Name << " now Small" << endl;
             validRequest = true;
             garageType = Garage::GarageType::Small;
+            UpdateGarageVectors();
             DistanceFromGarage = 0;
             break;
         case 5:
             cout << "Garage type in " << Name << " now Large" << endl;
             validRequest = true;
             garageType = Garage::GarageType::Large;
+            UpdateGarageVectors();
             DistanceFromGarage = 0;
             break;
         default:
             cout << "Invalid choice" << endl;
             break;
         }
+        //TODO: Lets add a GarageDistance() method to erase some of the "DistanceFromGarage =" logic from other methods.
     }
+}
+
+void City::UpdateGarageVectors()
+{
+    switch(garageType)
+    {
+    case Garage::GarageType::NotAllowed:
+        break;
+    case Garage::GarageType::None:
+        RemoveFromVector(&GarageCities);
+        AddToVector(&NoGarageCities);
+        break;
+    case Garage::GarageType::Tiny:
+    case Garage::GarageType::Small:
+    case Garage::GarageType::Large:
+        RemoveFromVector(&NoGarageCities);
+        AddToVector(&GarageCities);
+        break;
+    }
+}
+
+void City::RemoveFromVector(vector<City*>* InVector)
+{
+    for (uint i = 0; i < InVector->size(); i++)
+    {
+        if((InVector->at(i)->Name == Name) && (InVector->at(i)->CountryName == CountryName))
+        {
+            InVector->erase(InVector->begin() + i);
+            return;
+        }
+    }
+}
+
+void City::AddToVector(vector <City*>* InVector)
+{
+    for (uint i = 0; i < InVector->size(); i++)
+    {
+        if((InVector->at(i)->Name == Name) && (InVector->at(i)->CountryName == CountryName))
+        {
+            return;
+        }
+    }
+    InVector->push_back(this);
 }
 

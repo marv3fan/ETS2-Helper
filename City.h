@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include "Garage.h"
+#include <vector>
 
 using namespace std;
 
@@ -24,6 +25,9 @@ public:
     void Serialize(ofstream&);
     void NotifyCountry();
     void ChangeGarage();
+    void UpdateGarageVectors();
+    void RemoveFromVector(vector<City*>*);
+    void AddToVector(vector<City*>*);
 };
 
 #endif // CITY_H_INCLUDED
