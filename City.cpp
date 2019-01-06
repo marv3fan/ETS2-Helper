@@ -182,6 +182,14 @@ void City::CalculateNearestGarageDistance()
         if(Geography::GetDistance(*this, *c) < DistanceFromGarage)
         {
             DistanceFromGarage = Geography::GetDistance(*this, *c);
+            closestGarageCity = c;
         }
     }
+}
+
+void City::AnnounceClosestGarage()
+{
+    cout << endl;
+    cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << endl;
+    cout << endl;
 }

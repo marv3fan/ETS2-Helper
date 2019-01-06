@@ -38,9 +38,10 @@ bool PrintMenu()
     cout << "(2): Populate Cities with Saved Data" << endl;
     cout << "(3): Change Garage in City" << endl;
     cout << "(4): Print Current Cities" << endl;
-    cout << "(5): Save" << endl;
-    cout << "(6): Save and Exit" << endl;
-    cout << "(7): Exit without Save" << endl;
+    cout << "(5): Suggest Next Garage" << endl;
+    cout << "(6): Save" << endl;
+    cout << "(7): Save and Exit" << endl;
+    cout << "(8): Exit without Save" << endl;
     cout << endl;
     cin >> menuChoice;
 
@@ -65,7 +66,6 @@ bool PrintMenu()
             c->CalculateNearestGarageDistance();
         }
     }
-
 
     break;
     case 4:
@@ -101,16 +101,34 @@ bool PrintMenu()
         }
         break;
     case 5:
+    {
+        int greatestCityDistance = 0;
+        City* greatestCity = nullptr;
+
+        for(City* c: NoGarageCities)
+        {
+            if(c->DistanceFromGarage > greatestCityDistance)
+            {
+                greatestCityDistance = c->DistanceFromGarage;
+                greatestCity = c;
+            }
+        }
+        cout << endl;
+        cout << greatestCity->Name << ", " << greatestCity->CountryName << " is the city farthest from a garage." << endl;
+
+        greatestCity->AnnounceClosestGarage();
+    }
+    case 6:
         //TODO: create back up if file already exists
         Serialize();
         break;
-    case 6:
+    case 7:
         //TODO: create back up if file already exists
         //We need to create a confirmation, should be pretty simple...
         Serialize();
         return true;
         break;
-    case 7:
+    case 8:
         //We need a confirmation
         return true;
     default:

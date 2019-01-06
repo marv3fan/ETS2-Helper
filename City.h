@@ -12,6 +12,7 @@ class City
 {
 private:
     Garage::GarageType garageType;
+    City* closestGarageCity;
 public:
     string Name;
     string CountryName;
@@ -29,6 +30,7 @@ public:
     void RemoveFromVector(vector<City*>*);
     void AddToVector(vector<City*>*);
     void CalculateNearestGarageDistance();
+    void AnnounceClosestGarage();
 };
 
 #endif // CITY_H_INCLUDED
