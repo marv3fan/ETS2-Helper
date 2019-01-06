@@ -78,20 +78,21 @@ void City::ChangeGarage()
     }
 
     bool validRequest = false;
-    while (!validRequest){
+    while (!validRequest)
+    {
 
-    cout << endl;
-    cout << "(1) None" << endl;
-    cout << "(2) Tiny" << endl;
-    cout << "(3) Small" << endl;
-    cout << "(4) Large" << endl;
-    cout << endl;
+        cout << endl;
+        cout << "(1) None" << endl;
+        cout << "(2) Tiny" << endl;
+        cout << "(3) Small" << endl;
+        cout << "(4) Large" << endl;
+        cout << endl;
 
-    cout << "Choose which type of Garage:" << endl;
-    int garageRequest = 99;
+        cout << "Choose which type of Garage:" << endl;
+        int garageRequest = 99;
 
-    cin >> garageRequest;
-    switch(garageRequest + 1)
+        cin >> garageRequest;
+        switch(garageRequest + 1)
         {
         case 2:
             cout << "Removed garage from " << Name << endl;
