@@ -28,6 +28,7 @@ public:
     void UpdateGarageVectors();
     void RemoveFromVector(vector<City*>*);
     void AddToVector(vector<City*>*);
+    void CalculateNearestGarageDistance();
 };
 
 #endif // CITY_H_INCLUDED

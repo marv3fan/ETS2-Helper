@@ -1,5 +1,6 @@
 #include "City.h"
 #include "Country.h"
+#include "Geography.h"
 #include <fstream>
 #include <vector>
 #include <iostream>
@@ -174,3 +175,13 @@ void City::AddToVector(vector <City*>* InVector)
     InVector->push_back(this);
 }
 
+void City::CalculateNearestGarageDistance()
+{
+    for (City* c : GarageCities)
+    {
+        if(Geography::GetDistance(*this, *c) < DistanceFromGarage)
+        {
+            DistanceFromGarage = Geography::GetDistance(*this, *c);
+        }
+    }
+}

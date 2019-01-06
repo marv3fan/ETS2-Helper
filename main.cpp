@@ -59,6 +59,11 @@ bool PrintMenu()
         int country = GetCountry();
         int city = GetCity(country);
         Countries[country]->CountryCities[city]->ChangeGarage();
+
+        for (City* c : NoGarageCities)
+        {
+            c->CalculateNearestGarageDistance();
+        }
     }
 
 
@@ -336,11 +341,7 @@ void PopulateCities()
     Cities.push_back(new City("Wrocław", "Poland", 51.1263, 16.9782));
     Cities.push_back(new City("Zürich", "Switzerland", 47.3769, 8.54141));
 
-    for (City* c : Cities)
-    {
-        c->NotifyCountry();
-        c->UpdateGarageVectors();
-    }
+    InitializeCities();
 }
 
 void Serialize()
@@ -412,12 +413,7 @@ void Deserialize()
                 throw "Error reading from save file";
             }
         }
-        for (City* c : Cities)
-        {
-            c->NotifyCountry();
-            c->UpdateGarageVectors();
-        }
-
+        InitializeCities();
     }
     else
     {
@@ -425,7 +421,7 @@ void Deserialize()
     }
 }
 
-
+//TODO refactor into Country class.
 int GetCountry()
 {
     uint countrychoice = 9999;
@@ -452,6 +448,7 @@ int GetCountry()
     return countrychoice - 1;
 }
 
+//TODO: refactor into City class
 int GetCity(int countryIndex)
 {
     uint citychoice = 9999;
@@ -478,4 +475,18 @@ int GetCity(int countryIndex)
     cout << endl;
 
     return citychoice - 1;
+}
+
+void InitializeCities()
+{
+    for (City* c : Cities)
+    {
+        c->NotifyCountry();
+        c->UpdateGarageVectors();
+    }
+
+    for (City* c : NoGarageCities)
+    {
+        c->CalculateNearestGarageDistance();
+    }
 }
