@@ -1,8 +1,9 @@
 #ifndef ETS2HELPER_COUNTRY_H
 #define ETS2HELPER_COUNTRY_H
 
-#include <vector>
 #include <string>
+#include <vector>
+
 #include "City.h"
 
 using namespace std;

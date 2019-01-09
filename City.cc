@@ -1,8 +1,9 @@
-#include <fstream>
-#include <vector>
-#include <iostream>
-
 #include "City.h"
+
+#include <fstream>
+#include <iostream>
+#include <vector>
+
 #include "Country.h"
 #include "Geography.h"
 

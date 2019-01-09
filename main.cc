@@ -1,11 +1,12 @@
-#include <iostream>
-#include <vector>
-#include <fstream>
-#include <string>
-
 #include "main.h"
-#include "Country.h"
+
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
+
 #include "City.h"
+#include "Country.h"
 
 using namespace std;
 
