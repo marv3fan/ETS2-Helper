@@ -1,14 +1,14 @@
-#include "City.h"
-#include "Country.h"
-#include "Geography.h"
 #include <fstream>
 #include <vector>
 #include <iostream>
 
+#include "City.h"
+#include "Country.h"
+#include "Geography.h"
+
 extern vector<Country*> Countries;
 extern vector<City*> GarageCities;
 extern vector<City*> NoGarageCities;
-
 
 City::City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
     : garageType(GarageType), Name(CityName), CountryName(InCountry), Latitude(Lat), Longitude(Lon)
@@ -26,31 +26,32 @@ City::City(string CityName, string InCountry, double Lat, double Lon, Garage::Ga
         }
     }
     throw "Country not found!";
-}
+};
 
-
-Garage::GarageType City::GarageType()
+void City::AddToVector(vector<City*>& InVector)
 {
-    return garageType;
-}
 
-void City::Serialize(ofstream& savefile)
-{
-    savefile << Name << '\n';
-    savefile << CountryName << '\n';
-    savefile << Latitude << '\n';
-    savefile << Longitude << '\n';
-    savefile << garageType << '\n';
-}
-
-void City::NotifyCountry()
-{
-    for(Country* c : Countries)
-        if (CountryName == c->Name)
+    for (uint i = 0; i < InVector.size(); i++)
+    {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName))
         {
-            c->AddCity(this);
+            return;
         }
-}
+    }
+    InVector.push_back(this);
+};
+
+void City::CalculateNearestGarageDistance()
+{
+    for (City* c : GarageCities)
+    {
+        if(Geography::GetDistance(*this, *c) < DistanceFromGarage)
+        {
+            DistanceFromGarage = Geography::GetDistance(*this, *c);
+            closestGarageCity = c;
+        }
+    }
+};
 
 void City::ChangeGarage()
 {
@@ -128,9 +129,31 @@ void City::ChangeGarage()
             cout << "Invalid choice" << endl;
             break;
         }
-        //TODO: Lets add a GarageDistance() method to erase some of the "DistanceFromGarage =" logic from other methods.
     }
-}
+};
+
+void City::NotifyCountry()
+{
+    for(Country* c : Countries)
+        if (CountryName == c->Name)
+        {
+            c->AddCity(this);
+        }
+};
+
+void City::RemoveFromVector(vector<City*>& InVector)
+{
+
+
+    for (uint i = 0; i < InVector.size(); i++)
+    {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName))
+        {
+            InVector.erase(InVector.begin() + i);
+            return;
+        }
+    }
+};
 
 void City::UpdateGarageVectors()
 {
@@ -139,57 +162,14 @@ void City::UpdateGarageVectors()
     case Garage::GarageType::NotAllowed:
         break;
     case Garage::GarageType::None:
-        RemoveFromVector(&GarageCities);
-        AddToVector(&NoGarageCities);
+        RemoveFromVector(GarageCities);
+        AddToVector(NoGarageCities);
         break;
     case Garage::GarageType::Tiny:
     case Garage::GarageType::Small:
     case Garage::GarageType::Large:
-        RemoveFromVector(&NoGarageCities);
-        AddToVector(&GarageCities);
+        RemoveFromVector(NoGarageCities);
+        AddToVector(GarageCities);
         break;
     }
-}
-
-void City::RemoveFromVector(vector<City*>* InVector)
-{
-    for (uint i = 0; i < InVector->size(); i++)
-    {
-        if((InVector->at(i)->Name == Name) && (InVector->at(i)->CountryName == CountryName))
-        {
-            InVector->erase(InVector->begin() + i);
-            return;
-        }
-    }
-}
-
-void City::AddToVector(vector <City*>* InVector)
-{
-    for (uint i = 0; i < InVector->size(); i++)
-    {
-        if((InVector->at(i)->Name == Name) && (InVector->at(i)->CountryName == CountryName))
-        {
-            return;
-        }
-    }
-    InVector->push_back(this);
-}
-
-void City::CalculateNearestGarageDistance()
-{
-    for (City* c : GarageCities)
-    {
-        if(Geography::GetDistance(*this, *c) < DistanceFromGarage)
-        {
-            DistanceFromGarage = Geography::GetDistance(*this, *c);
-            closestGarageCity = c;
-        }
-    }
-}
-
-void City::AnnounceClosestGarage()
-{
-    cout << endl;
-    cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << endl;
-    cout << endl;
-}
+};

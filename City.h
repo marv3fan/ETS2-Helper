@@ -3,8 +3,10 @@
 
 #include <fstream>
 #include <string>
-#include "Garage.h"
 #include <vector>
+#include <iostream>
+
+#include "Garage.h"
 
 using namespace std;
 
@@ -20,17 +22,35 @@ public:
     const double Longitude;
     double DistanceFromGarage = 200000;
 
-    City(string CityName, string InCountry, double Lat, double Lon, Garage::GarageType GarageType = Garage::GarageType::None);
+    City(string, string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
 
-    Garage::GarageType GarageType();
-    void Serialize(ofstream&);
-    void NotifyCountry();
-    void ChangeGarage();
-    void UpdateGarageVectors();
-    void RemoveFromVector(vector<City*>*);
-    void AddToVector(vector<City*>*);
+    void AddToVector(vector<City*>&);
     void CalculateNearestGarageDistance();
-    void AnnounceClosestGarage();
+    void ChangeGarage();
+    void NotifyCountry();
+    void RemoveFromVector(vector<City*>&);
+    void UpdateGarageVectors();
+
+    inline void AnnounceClosestGarage()
+    {
+        cout << endl;
+        cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << endl;
+        cout << endl;
+    };
+
+    inline Garage::GarageType GarageType()
+    {
+        return garageType;
+    };
+
+    inline void Serialize(ofstream& savefile)
+    {
+        savefile << Name << '\n';
+        savefile << CountryName << '\n';
+        savefile << Latitude << '\n';
+        savefile << Longitude << '\n';
+        savefile << garageType << '\n';
+    };
 };
 
 #endif
