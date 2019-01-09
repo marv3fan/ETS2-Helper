@@ -3,10 +3,9 @@
 
 #include <vector>
 #include <string>
+#include "City.h"
 
 using namespace std;
-
-class City;
 
 class Country
 {
