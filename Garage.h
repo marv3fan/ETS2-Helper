@@ -1,5 +1,5 @@
-#ifndef GARAGE_H_INCLUDED
-#define GARAGE_H_INCLUDED
+#ifndef ETS2HELPER_GARAGE_H
+#define ETS2HELPER_GARAGE_H
 
 class Garage
 {
@@ -14,4 +14,4 @@ public:
     };
 };
 
-#endif // GARAGE_H_INCLUDED
+#endif

@@ -1,5 +1,5 @@
-#ifndef CITY_H_INCLUDED
-#define CITY_H_INCLUDED
+#ifndef ETS2HELPER_CITY_H
+#define ETS2HELPER_CITY_H
 
 #include <fstream>
 #include <string>
@@ -33,4 +33,4 @@ public:
     void AnnounceClosestGarage();
 };
 
-#endif // CITY_H_INCLUDED
+#endif

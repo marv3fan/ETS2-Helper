@@ -1,5 +1,5 @@
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef ETS2HELPER_MAIN_H
+#define ETS2HELPER_MAIN_H
 
 bool PrintMenu();
 void PopulateCountries();
@@ -10,4 +10,4 @@ int GetCountry();
 int GetCity(int);
 void InitializeCities();
 
-#endif // MAIN_H_INCLUDED
+#endif

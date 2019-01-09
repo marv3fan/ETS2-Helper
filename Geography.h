@@ -1,5 +1,5 @@
-#ifndef GEOGRAPHY_H_INCLUDED
-#define GEOGRAPHY_H_INCLUDED
+#ifndef ETS2HELPER_GEOGRAPHY_H
+#define ETS2HELPER_GEOGRAPHY_H
 
 class City;
 
@@ -12,4 +12,4 @@ private:
     Geography() {}
 };
 
-#endif // GEOGRAPHY_H_INCLUDED
+#endif

@@ -1,5 +1,5 @@
-#ifndef COUNTRY_H_INCLUDED
-#define COUNTRY_H_INCLUDED
+#ifndef ETS2HELPER_COUNTRY_H
+#define ETS2HELPER_COUNTRY_H
 
 #include <vector>
 #include <string>
@@ -18,4 +18,4 @@ public:
         : Name(CountryName)
     {}
 };
-#endif // COUNTRY_H_INCLUDED
+#endif
