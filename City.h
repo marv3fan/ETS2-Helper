@@ -6,10 +6,10 @@
 #include <string>
 #include <vector>
 
-#include "Country.h"
 #include "Garage.h"
 
-namespace ETS2Helper{
+namespace ETS2Helper
+{
 class City
 {
 private:

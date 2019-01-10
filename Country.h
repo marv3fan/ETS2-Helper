@@ -4,9 +4,10 @@
 #include <string>
 #include <vector>
 
+#include "City.h"
+
 namespace ETS2Helper
 {
-class City;
 
 class Country
 {

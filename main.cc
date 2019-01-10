@@ -78,19 +78,19 @@ bool PrintMenu()
 
                 switch(y->GarageType())
                 {
-                case Garage::GarageType::None:
+                case ETS2Helper::Garage::GarageType::None:
                     std::cout << "No Garage" << std::endl;
                     break;
-                case Garage::GarageType::NotAllowed:
+                case ETS2Helper::Garage::GarageType::NotAllowed:
                     std::cout << "Garage Not Allowed" << std::endl;
                     break;
-                case Garage::GarageType::Tiny:
+                case ETS2Helper::Garage::GarageType::Tiny:
                     std::cout << "Tiny Garage" << std::endl;
                     break;
-                case Garage::GarageType::Small:
+                case ETS2Helper::Garage::GarageType::Small:
                     std::cout << "Small Garage" << std::endl;
                     break;
-                case Garage::GarageType::Large:
+                case ETS2Helper::Garage::GarageType::Large:
                     std::cout << "Large Garage" << std::endl;
                     break;
                 }
@@ -138,13 +138,6 @@ bool PrintMenu()
     return false;
 }
 
-
-//TODO: Refactor this to a static method in the City class
-void PopulateCities()
-{
-
-}
-
 void Serialize()
 {
     std::cout << std::endl << "Saving City data..." << std::endl;
@@ -182,7 +175,7 @@ void Deserialize()
         std::string fileCountryName;
         double fileLatitude;
         double fileLongitude;
-        Garage::GarageType fileGarageType;
+        ETS2Helper::Garage::GarageType fileGarageType;
 
         while (getline(savefile, line))
         {
@@ -206,7 +199,7 @@ void Deserialize()
                 break;
             case 5:
                 //This line casts the integer returned from parsing the line from the file string to int using stoi, and then casts that integer to the GarageType
-                fileGarageType = static_cast<Garage::GarageType>(stoi(line));
+                fileGarageType = static_cast<ETS2Helper::Garage::GarageType>(stoi(line));
                 ETS2Helper::City::AllCities.push_back(new ETS2Helper::City(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType));
                 linenumber = 1;
                 break;

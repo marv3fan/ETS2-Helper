@@ -1,6 +1,7 @@
 #ifndef ETS2HELPER_GARAGE_H
 #define ETS2HELPER_GARAGE_H
-
+namespace ETS2Helper
+{
 class Garage
 {
 public:
@@ -13,5 +14,5 @@ public:
         Large
     };
 };
-
+}
 #endif
