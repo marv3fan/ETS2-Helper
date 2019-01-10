@@ -8,12 +8,14 @@
 #include "City.h"
 #include "Country.h"
 
+//TODO(1): Code needs to be in Google C++ Style
 
 const std::string CitySaveFile = "Cities.dat";
 
 
 int main()
 {
+    //TODO(2): We should automatically detect the Cities.dat file.
     ets2helper::Country::PopulateCountries();
 
     bool ExitRequested = false;
@@ -47,6 +49,7 @@ bool PrintMenu()
     switch(menuChoice)
     {
     case 1:
+        //TODO(5): Safeguard against repopulating data.
         ets2helper::City::PopulateCities();
         std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
         break;
@@ -56,8 +59,8 @@ bool PrintMenu()
         break;
     case 3:
     {
-        int country = GetCountry();
-        int city = GetCity(country);
+        int country = ets2helper::Country::GetCountryIndex();
+        int city = ets2helper::City::GetCityIndex(country);
         ets2helper::Country::AllCountries[country]->CountryCities[city]->ChangeGarage();
 
         for (ets2helper::City* c : ets2helper::City::NoGarageCities)
@@ -118,11 +121,9 @@ bool PrintMenu()
         greatestCity->AnnounceClosestGarage();
     }
     case 6:
-        //TODO: create back up if file already exists
         Serialize();
         break;
     case 7:
-        //TODO: create back up if file already exists
         //We need to create a confirmation, should be pretty simple...
         Serialize();
         return true;
@@ -140,6 +141,8 @@ bool PrintMenu()
 
 void Serialize()
 {
+    //TODO(3): When serializing data, we should check if the file already exists. If it does, we should move it to Cities.dat.bak and serialize the new data to the old file.
+    //TODO(4): Simplify serializing: we only need to serialize what's not in its default state.
     std::cout << std::endl << "Saving City data..." << std::endl;
 
     std::ofstream savefile;
@@ -213,61 +216,5 @@ void Deserialize()
     {
         throw "Error! File not open";
     }
-}
-
-//TODO refactor into Country class.
-int GetCountry()
-{
-    uint countrychoice = 9999;
-
-    while((countrychoice < 1)| (countrychoice > ets2helper::Country::AllCountries.size()))
-    {
-        std::cout << std::endl;
-
-        for (uint i = 0; i < ets2helper::Country::AllCountries.size(); i++)
-        {
-            std::cout << "(" << i + 1 << ") " << ets2helper::Country::AllCountries[i]->Name << std::endl;
-        }
-
-        std::cout << std::endl;
-        std::cout << "Please select a country: " << std::endl;
-
-        std::cin >> countrychoice;
-    }
-
-    std::cout << std::endl;
-    std::cout << "You chose " << ets2helper::Country::AllCountries[countrychoice - 1]->Name << std::endl;
-    std::cout << std::endl;
-
-    return countrychoice - 1;
-}
-
-//TODO: refactor into City class
-int GetCity(int countryIndex)
-{
-    uint citychoice = 9999;
-
-    while((citychoice < 1)| (citychoice > ets2helper::City::AllCities.size()))
-    {
-        std::cout << std::endl;
-        std::cout << "Cities in " << ets2helper::Country::AllCountries[countryIndex]->Name << ":" << std::endl;
-        std::cout << std::endl;
-
-        for (uint i = 0; i < ets2helper::Country::AllCountries[countryIndex]->CountryCities.size(); i++)
-        {
-            std::cout << "(" << i + 1 << ") " << ets2helper::Country::AllCountries[countryIndex]->CountryCities[i]->Name << std::endl;
-        }
-
-        std::cout << std::endl;
-        std::cout << "Please select a city: " << std::endl;
-
-        std::cin >> citychoice;
-    }
-
-    std::cout << std::endl;
-    std::cout << "You chose " << ets2helper::Country::AllCountries[countryIndex]->CountryCities[citychoice - 1]->Name << std::endl;
-    std::cout << std::endl;
-
-    return citychoice - 1;
 }
 

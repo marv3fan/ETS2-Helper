@@ -5,6 +5,32 @@ namespace ets2helper
 
 std::vector<Country*> Country::AllCountries;
 
+int Country::GetCountryIndex()
+{
+    uint countrychoice = 9999;
+
+    while((countrychoice < 1)| (countrychoice > AllCountries.size()))
+    {
+        std::cout << std::endl;
+
+        for (uint i = 0; i < AllCountries.size(); i++)
+        {
+            std::cout << "(" << i + 1 << ") " << AllCountries[i]->Name << std::endl;
+        }
+
+        std::cout << std::endl;
+        std::cout << "Please select a country: " << std::endl;
+
+        std::cin >> countrychoice;
+    }
+
+    std::cout << std::endl;
+    std::cout << "You chose " << AllCountries[countrychoice - 1]->Name << std::endl;
+    std::cout << std::endl;
+
+    return countrychoice - 1;
+}
+
 void Country::PopulateCountries()
 {
     AllCountries.push_back(new Country("Austria"));

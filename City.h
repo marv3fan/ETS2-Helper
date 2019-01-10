@@ -31,6 +31,7 @@ public:
     void AddToVector(std::vector<City*>&);
     void CalculateNearestGarageDistance();
     void ChangeGarage();
+    static int GetCityIndex(int);
     static void InitializeCities();
     void NotifyCountry();
     static void PopulateCities();

@@ -7,6 +7,7 @@
 #include "Country.h"
 #include "Geography.h"
 
+
 namespace ets2helper
 {
 
@@ -134,6 +135,35 @@ void City::ChangeGarage()
         }
     }
 };
+
+int City::GetCityIndex(int country_index)
+{
+    uint citychoice = 9999;
+
+    while((citychoice < 1)| (citychoice > AllCities.size()))
+    {
+        std::cout << std::endl;
+        std::cout << "Cities in " << Country::AllCountries[country_index]->Name << ":" << std::endl;
+        std::cout << std::endl;
+
+        for (uint i = 0; i < Country::AllCountries[country_index]->CountryCities.size(); i++)
+        {
+            std::cout << "(" << i + 1 << ") " << Country::AllCountries[country_index]->CountryCities[i]->Name << std::endl;
+        }
+
+        std::cout << std::endl;
+        std::cout << "Please select a city: " << std::endl;
+
+        std::cin >> citychoice;
+    }
+
+    std::cout << std::endl;
+    std::cout << "You chose " << Country::AllCountries[country_index]->CountryCities[citychoice - 1]->Name << std::endl;
+    std::cout << std::endl;
+
+    return citychoice - 1;
+}
+
 void City::InitializeCities()
 {
 

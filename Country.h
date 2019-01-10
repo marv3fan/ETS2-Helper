@@ -16,6 +16,7 @@ public:
     std::vector<City*> CountryCities;
     std::string Name;
 
+    static int GetCountryIndex();
     static void PopulateCountries();
 
     inline Country(std::string CountryName)

@@ -4,7 +4,5 @@
 bool PrintMenu();
 void Serialize();
 void Deserialize();
-int GetCountry();
-int GetCity(int);
 
 #endif
