@@ -1,20 +1,15 @@
 #include "Country.h"
 
-namespace ets2helper
-{
+namespace ets2helper {
 
 std::vector<Country*> Country::AllCountries;
 
-int Country::GetCountryIndex()
-{
+int Country::GetCountryIndex() {
     uint countrychoice = 9999;
-
-    while((countrychoice < 1)| (countrychoice > AllCountries.size()))
-    {
+    while((countrychoice < 1)| (countrychoice > AllCountries.size())) {
         std::cout << std::endl;
 
-        for (uint i = 0; i < AllCountries.size(); i++)
-        {
+        for (uint i = 0; i < AllCountries.size(); i++) {
             std::cout << "(" << i + 1 << ") " << AllCountries[i]->Name << std::endl;
         }
 
@@ -31,8 +26,7 @@ int Country::GetCountryIndex()
     return countrychoice - 1;
 }
 
-void Country::PopulateCountries()
-{
+void Country::PopulateCountries() {
     AllCountries.push_back(new Country("Austria"));
     AllCountries.push_back(new Country("Belgium"));
     AllCountries.push_back(new Country("Czech Republic"));

@@ -13,15 +13,13 @@
 const std::string CitySaveFile = "Cities.dat";
 
 
-int main()
-{
+int main() {
     //TODO(2): We should automatically detect the Cities.dat file.
     ets2helper::Country::PopulateCountries();
 
     bool ExitRequested = false;
 
-    while (!ExitRequested)
-    {
+    while (!ExitRequested) {
         ExitRequested = PrintMenu();
     }
 
@@ -30,9 +28,7 @@ int main()
     return 0;
 }
 
-bool PrintMenu()
-{
-    int menuChoice = 0;
+bool PrintMenu() {
     std::cout << std::endl;
     std::cout << "*******Main Menu*******" << std::endl;
     std::cout << "(1): Populate Cities with Default Data" << std::endl;
@@ -44,10 +40,10 @@ bool PrintMenu()
     std::cout << "(7): Save and Exit" << std::endl;
     std::cout << "(8): Exit without Save" << std::endl;
     std::cout << std::endl;
-    std::cin >> menuChoice;
 
-    switch(menuChoice)
-    {
+    int menuChoice = 0;
+    std::cin >> menuChoice;
+    switch(menuChoice) {
     case 1:
         //TODO(5): Safeguard against repopulating data.
         ets2helper::City::PopulateCities();
@@ -57,30 +53,25 @@ bool PrintMenu()
         Deserialize();
         std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
         break;
-    case 3:
-    {
+    case 3: {
         int country = ets2helper::Country::GetCountryIndex();
         int city = ets2helper::City::GetCityIndex(country);
         ets2helper::Country::AllCountries[country]->CountryCities[city]->ChangeGarage();
 
-        for (ets2helper::City* c : ets2helper::City::NoGarageCities)
-        {
+        for (ets2helper::City* c : ets2helper::City::NoGarageCities) {
             c->CalculateNearestGarageDistance();
         }
     }
 
     break;
     case 4:
-        for(ets2helper::Country* c : ets2helper::Country::AllCountries)
-        {
-            for(ets2helper::City* y: c->CountryCities)
-            {
+        for(ets2helper::Country* c : ets2helper::Country::AllCountries) {
+            for(ets2helper::City* y: c->CountryCities) {
                 std::cout << std::endl;
                 std::cout << y->Name << ", " << c->Name << std::endl;
                 std::cout << y->Coordinates.Latitude << " " << y->Coordinates.Longitude << std::endl;
 
-                switch(y->GarageType())
-                {
+                switch(y->GarageType()) {
                 case ets2helper::Garage::GarageType::None:
                     std::cout << "No Garage" << std::endl;
                     break;
@@ -108,10 +99,8 @@ bool PrintMenu()
         int greatestCityDistance = 0;
         ets2helper::City* greatestCity = nullptr;
 
-        for(ets2helper::City* c: ets2helper::City::NoGarageCities)
-        {
-            if(c->DistanceFromGarage > greatestCityDistance)
-            {
+        for(ets2helper::City* c: ets2helper::City::NoGarageCities) {
+            if(c->DistanceFromGarage > greatestCityDistance) {
                 greatestCityDistance = c->DistanceFromGarage;
                 greatestCity = c;
             }
@@ -140,8 +129,7 @@ bool PrintMenu()
     return false;
 }
 
-void Serialize()
-{
+void Serialize() {
     //TODO(3): When serializing data, we should check if the file already exists. If it does, we should move it to Cities.dat.bak and serialize the new data to the old file.
     //TODO(4): Simplify serializing: we only need to serialize what's not in its default state.
     std::cout << std::endl << "Saving City data..." << std::endl;
@@ -149,42 +137,33 @@ void Serialize()
     std::ofstream savefile;
     savefile.open (CitySaveFile);
 
-    if (savefile.is_open())
-    {
-        for (ets2helper::City* c: ets2helper::City::AllCities)
-        {
+    if (savefile.is_open()) {
+        for (ets2helper::City* c: ets2helper::City::AllCities) {
             c->Serialize(savefile);
         }
 
         savefile.close();
-    }
-    else
-    {
+    } else {
         throw "Error! File not open";
     }
 }
 
-void Deserialize()
-{
-    std::string line;
+void Deserialize() {
     std::ifstream savefile;
     savefile.open(CitySaveFile);
-    if (savefile.is_open())
-    {
+    if (savefile.is_open()) {
         std::cout << "Opened save file..." << std::endl;
-
-        int linenumber = 1;
 
         std::string fileCityName;
         std::string fileCountryName;
         double fileLatitude;
         double fileLongitude;
         ets2helper::Garage::GarageType fileGarageType;
+        int linenumber = 1;
 
-        while (getline(savefile, line))
-        {
-            switch(linenumber)
-            {
+        std::string line;
+        while (getline(savefile, line)) {
+            switch(linenumber) {
             case 1:
                 fileCityName = line;
                 linenumber++;
@@ -212,9 +191,7 @@ void Deserialize()
             }
         }
         ets2helper::City::InitializeCities();
-    }
-    else
-    {
+    } else {
         throw "Error! File not open";
     }
 }

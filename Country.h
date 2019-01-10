@@ -6,12 +6,10 @@
 
 #include "City.h"
 
-namespace ets2helper
-{
+namespace ets2helper {
 
-class Country
-{
-public:
+class Country {
+  public:
     static std::vector<Country*> AllCountries;
     std::vector<City*> CountryCities;
     std::string Name;
@@ -23,8 +21,7 @@ public:
         : Name(CountryName)
     {}
 
-    inline void AddCity(City* InCity)
-    {
+    inline void AddCity(City* InCity) {
         Country::CountryCities.push_back(InCity);
     };
 };

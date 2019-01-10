@@ -8,65 +8,52 @@
 #include "geography/Geography.h"
 #include "geography/Coordinates.h"
 
-namespace ets2helper
-{
+namespace ets2helper {
 
 std::vector <City*> City::GarageCities;
 std::vector <City*> City::NoGarageCities;
 std::vector <City*> City::AllCities;
 
 City::City(std::string CityName, std::string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
-    : garageType(GarageType), Name(CityName), CountryName(InCountry)
-{
+    : garageType(GarageType), Name(CityName), CountryName(InCountry) {
     Coordinates.Latitude = Lat;
     Coordinates.Longitude = Lon;
 
-    if (garageType != Garage::GarageType::None)
-    {
+    if (garageType != Garage::GarageType::None) {
         DistanceFromGarage = 0;
     }
 
-    for(Country* c : Country::AllCountries)
-    {
-        if (InCountry == c->Name)
-        {
+    for(Country* c : Country::AllCountries) {
+        if (InCountry == c->Name) {
             return;
         }
     }
     throw "Country not found!";
 };
 
-void City::AddToVector(std::vector<City*>& InVector)
-{
+void City::AddToVector(std::vector<City*>& InVector) {
 
-    for (uint i = 0; i < InVector.size(); i++)
-    {
-        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName))
-        {
+    for (uint i = 0; i < InVector.size(); i++) {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
             return;
         }
     }
     InVector.push_back(this);
 };
 
-void City::CalculateNearestGarageDistance()
-{
-    for (City* c : City::GarageCities)
-    {
-        if(geography::GetDistance(Coordinates, c->Coordinates) < DistanceFromGarage)
-        {
+void City::CalculateNearestGarageDistance() {
+    for (City* c : City::GarageCities) {
+        if(geography::GetDistance(Coordinates, c->Coordinates) < DistanceFromGarage) {
             DistanceFromGarage = geography::GetDistance(Coordinates, c->Coordinates);
             closestGarageCity = c;
         }
     }
 };
 
-void City::ChangeGarage()
-{
+void City::ChangeGarage() {
     std::cout << "Current garage in " << Name << ", " << CountryName << ": ";
 
-    switch(garageType)
-    {
+    switch(garageType) {
     case Garage::GarageType::None:
         std::cout << "None" << std::endl;
         break;
@@ -87,9 +74,8 @@ void City::ChangeGarage()
         break;
     }
 
-    bool validRequest = false;
-    while (!validRequest)
-    {
+    bool validRequest = false
+    while (!validRequest) {
         std::cout << std::endl;
         std::cout << "(1) None" << std::endl;
         std::cout << "(2) Tiny" << std::endl;
@@ -101,8 +87,7 @@ void City::ChangeGarage()
         int garageRequest = 99;
 
         std::cin >> garageRequest;
-        switch(garageRequest + 1)
-        {
+        switch(garageRequest + 1) {
         case 2:
             std::cout << "Removed garage from " << Name << std::endl;
             validRequest = true;
@@ -138,18 +123,14 @@ void City::ChangeGarage()
     }
 };
 
-int City::GetCityIndex(int country_index)
-{
+int City::GetCityIndex(int country_index) {
     uint citychoice = 9999;
-
-    while((citychoice < 1)| (citychoice > AllCities.size()))
-    {
+    while((citychoice < 1)| (citychoice > AllCities.size())) {
         std::cout << std::endl;
         std::cout << "Cities in " << Country::AllCountries[country_index]->Name << ":" << std::endl;
         std::cout << std::endl;
 
-        for (uint i = 0; i < Country::AllCountries[country_index]->CountryCities.size(); i++)
-        {
+        for (uint i = 0; i < Country::AllCountries[country_index]->CountryCities.size(); i++) {
             std::cout << "(" << i + 1 << ") " << Country::AllCountries[country_index]->CountryCities[i]->Name << std::endl;
         }
 
@@ -166,32 +147,26 @@ int City::GetCityIndex(int country_index)
     return citychoice - 1;
 }
 
-void City::InitializeCities()
-{
+void City::InitializeCities() {
 
-    for (City* c : AllCities)
-    {
+    for (City* c : AllCities) {
         c->NotifyCountry();
         c->UpdateGarageVectors();
     }
 
-    for (City* c : NoGarageCities)
-    {
+    for (City* c : NoGarageCities) {
         c->CalculateNearestGarageDistance();
     }
 }
 
-void City::NotifyCountry()
-{
+void City::NotifyCountry() {
     for(Country* c : Country::AllCountries)
-        if (CountryName == c->Name)
-        {
+        if (CountryName == c->Name) {
             c->AddCity(this);
         }
 };
 
-void City::PopulateCities()
-{
+void City::PopulateCities() {
     AllCities.push_back(new City("Aalborg", "Denmark", 57.0482, 9.91939));
     AllCities.push_back(new City("Aberdeen", "United Kingdom", 57.1482, -2.09281));
     AllCities.push_back(new City("Amsterdam", "Netherlands", 52.3745, 4.89798));
@@ -385,24 +360,19 @@ void City::PopulateCities()
     InitializeCities();
 }
 
-void City::RemoveFromVector(std::vector<City*>& InVector)
-{
+void City::RemoveFromVector(std::vector<City*>& InVector) {
 
 
-    for (uint i = 0; i < InVector.size(); i++)
-    {
-        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName))
-        {
+    for (uint i = 0; i < InVector.size(); i++) {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
             InVector.erase(InVector.begin() + i);
             return;
         }
     }
 };
 
-void City::UpdateGarageVectors()
-{
-    switch(garageType)
-    {
+void City::UpdateGarageVectors() {
+    switch(garageType) {
     case Garage::GarageType::NotAllowed:
         break;
     case Garage::GarageType::None:
