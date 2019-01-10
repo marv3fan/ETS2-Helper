@@ -7,6 +7,7 @@
 
 #include "City.h"
 #include "Country.h"
+#include "Vector.h"
 
 //TODO(1): Code needs to be in Google C++ Style
 
@@ -47,25 +48,25 @@ bool PrintMenu() {
     case 1:
         //TODO(5): Safeguard against repopulating data.
         ets2helper::City::PopulateCities();
-        std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
+        std::cout << std::endl << "Created " << ets2helper::Vector::Instance()->AllCities.size() << " cities in " << ets2helper::Vector::Instance()->AllCountries.size() << " countries." << std::endl;
         break;
     case 2:
         Deserialize();
-        std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
+        std::cout << std::endl << "Created " << ets2helper::Vector::Instance()->AllCities.size() << " cities in " << ets2helper::Vector::Instance()->AllCountries.size() << " countries." << std::endl;
         break;
     case 3: {
         int country = ets2helper::Country::GetCountryIndex();
         int city = ets2helper::City::GetCityIndex(country);
-        ets2helper::Country::AllCountries[country]->CountryCities[city]->ChangeGarage();
+        ets2helper::Vector::Instance()->AllCountries[country]->CountryCities[city]->ChangeGarage();
 
-        for (ets2helper::City* c : ets2helper::City::NoGarageCities) {
+        for (ets2helper::City* c : ets2helper::Vector::Instance()->NoGarageCities) {
             c->CalculateNearestGarageDistance();
         }
     }
 
     break;
     case 4:
-        for(ets2helper::Country* c : ets2helper::Country::AllCountries) {
+        for(ets2helper::Country* c : ets2helper::Vector::Instance()->AllCountries) {
             for(ets2helper::City* y: c->CountryCities) {
                 std::cout << std::endl;
                 std::cout << y->Name << ", " << c->Name << std::endl;
@@ -99,7 +100,7 @@ bool PrintMenu() {
         int greatestCityDistance = 0;
         ets2helper::City* greatestCity = nullptr;
 
-        for(ets2helper::City* c: ets2helper::City::NoGarageCities) {
+        for(ets2helper::City* c: ets2helper::Vector::Instance()->NoGarageCities) {
             if(c->DistanceFromGarage > greatestCityDistance) {
                 greatestCityDistance = c->DistanceFromGarage;
                 greatestCity = c;
@@ -138,7 +139,7 @@ void Serialize() {
     savefile.open (CitySaveFile);
 
     if (savefile.is_open()) {
-        for (ets2helper::City* c: ets2helper::City::AllCities) {
+        for (ets2helper::City* c: ets2helper::Vector::Instance()->AllCities) {
             c->Serialize(savefile);
         }
 
@@ -183,7 +184,7 @@ void Deserialize() {
             case 5:
                 //This line casts the integer returned from parsing the line from the file string to int using stoi, and then casts that integer to the GarageType
                 fileGarageType = static_cast<ets2helper::Garage::GarageType>(stoi(line));
-                ets2helper::City::AllCities.push_back(new ets2helper::City(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType));
+                ets2helper::Vector::Instance()->AllCities.push_back(new ets2helper::City(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType));
                 linenumber = 1;
                 break;
             default:

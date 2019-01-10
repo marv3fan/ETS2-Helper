@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "geography/Coordinates.h"
-#include "geography/Geography.h"
 #include "Garage.h"
 
 namespace ets2helper {
@@ -17,9 +16,6 @@ class City {
     Garage::GarageType garageType;
     City* closestGarageCity;
   public:
-    static std::vector <City*> GarageCities;
-    static std::vector <City*> NoGarageCities;
-    static std::vector <City*> AllCities;
     std::string Name;
     std::string CountryName;
     geography::Coordinates Coordinates;

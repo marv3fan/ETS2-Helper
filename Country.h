@@ -10,7 +10,6 @@ namespace ets2helper {
 
 class Country {
   public:
-    static std::vector<Country*> AllCountries;
     std::vector<City*> CountryCities;
     std::string Name;
 
