@@ -1,7 +1,8 @@
 #include "Country.h"
 
-namespace ETS2Helper
+namespace ets2helper
 {
+
 std::vector<Country*> Country::AllCountries;
 
 void Country::PopulateCountries()
@@ -29,4 +30,4 @@ void Country::PopulateCountries()
     AllCountries.push_back(new Country("United Kingdom"));
 }
 
-}
+}  //namespace ets2helper

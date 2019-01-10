@@ -8,8 +8,9 @@
 
 #include "Garage.h"
 
-namespace ETS2Helper
+namespace ets2helper
 {
+
 class City
 {
 private:
@@ -58,5 +59,5 @@ public:
     };
 };
 
-}
+}  //namespace ets2helper
 #endif

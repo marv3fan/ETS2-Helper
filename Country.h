@@ -6,7 +6,7 @@
 
 #include "City.h"
 
-namespace ETS2Helper
+namespace ets2helper
 {
 
 class Country
@@ -28,5 +28,5 @@ public:
     };
 };
 
-}
+}  //namespace ets2helper
 #endif

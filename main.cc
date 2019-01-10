@@ -14,7 +14,7 @@ const std::string CitySaveFile = "Cities.dat";
 
 int main()
 {
-    ETS2Helper::Country::PopulateCountries();
+    ets2helper::Country::PopulateCountries();
 
     bool ExitRequested = false;
 
@@ -47,20 +47,20 @@ bool PrintMenu()
     switch(menuChoice)
     {
     case 1:
-        ETS2Helper::City::PopulateCities();
-        std::cout << std::endl << "Created " << ETS2Helper::City::AllCities.size() << " cities in " << ETS2Helper::Country::AllCountries.size() << " countries." << std::endl;
+        ets2helper::City::PopulateCities();
+        std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
         break;
     case 2:
         Deserialize();
-        std::cout << std::endl << "Created " << ETS2Helper::City::AllCities.size() << " cities in " << ETS2Helper::Country::AllCountries.size() << " countries." << std::endl;
+        std::cout << std::endl << "Created " << ets2helper::City::AllCities.size() << " cities in " << ets2helper::Country::AllCountries.size() << " countries." << std::endl;
         break;
     case 3:
     {
         int country = GetCountry();
         int city = GetCity(country);
-        ETS2Helper::Country::AllCountries[country]->CountryCities[city]->ChangeGarage();
+        ets2helper::Country::AllCountries[country]->CountryCities[city]->ChangeGarage();
 
-        for (ETS2Helper::City* c : ETS2Helper::City::NoGarageCities)
+        for (ets2helper::City* c : ets2helper::City::NoGarageCities)
         {
             c->CalculateNearestGarageDistance();
         }
@@ -68,9 +68,9 @@ bool PrintMenu()
 
     break;
     case 4:
-        for(ETS2Helper::Country* c : ETS2Helper::Country::AllCountries)
+        for(ets2helper::Country* c : ets2helper::Country::AllCountries)
         {
-            for(ETS2Helper::City* y: c->CountryCities)
+            for(ets2helper::City* y: c->CountryCities)
             {
                 std::cout << std::endl;
                 std::cout << y->Name << ", " << c->Name << std::endl;
@@ -78,19 +78,19 @@ bool PrintMenu()
 
                 switch(y->GarageType())
                 {
-                case ETS2Helper::Garage::GarageType::None:
+                case ets2helper::Garage::GarageType::None:
                     std::cout << "No Garage" << std::endl;
                     break;
-                case ETS2Helper::Garage::GarageType::NotAllowed:
+                case ets2helper::Garage::GarageType::NotAllowed:
                     std::cout << "Garage Not Allowed" << std::endl;
                     break;
-                case ETS2Helper::Garage::GarageType::Tiny:
+                case ets2helper::Garage::GarageType::Tiny:
                     std::cout << "Tiny Garage" << std::endl;
                     break;
-                case ETS2Helper::Garage::GarageType::Small:
+                case ets2helper::Garage::GarageType::Small:
                     std::cout << "Small Garage" << std::endl;
                     break;
-                case ETS2Helper::Garage::GarageType::Large:
+                case ets2helper::Garage::GarageType::Large:
                     std::cout << "Large Garage" << std::endl;
                     break;
                 }
@@ -102,9 +102,9 @@ bool PrintMenu()
     case 5:
     {
         int greatestCityDistance = 0;
-        ETS2Helper::City* greatestCity = nullptr;
+        ets2helper::City* greatestCity = nullptr;
 
-        for(ETS2Helper::City* c: ETS2Helper::City::NoGarageCities)
+        for(ets2helper::City* c: ets2helper::City::NoGarageCities)
         {
             if(c->DistanceFromGarage > greatestCityDistance)
             {
@@ -147,7 +147,7 @@ void Serialize()
 
     if (savefile.is_open())
     {
-        for (ETS2Helper::City* c: ETS2Helper::City::AllCities)
+        for (ets2helper::City* c: ets2helper::City::AllCities)
         {
             c->Serialize(savefile);
         }
@@ -175,7 +175,7 @@ void Deserialize()
         std::string fileCountryName;
         double fileLatitude;
         double fileLongitude;
-        ETS2Helper::Garage::GarageType fileGarageType;
+        ets2helper::Garage::GarageType fileGarageType;
 
         while (getline(savefile, line))
         {
@@ -199,15 +199,15 @@ void Deserialize()
                 break;
             case 5:
                 //This line casts the integer returned from parsing the line from the file string to int using stoi, and then casts that integer to the GarageType
-                fileGarageType = static_cast<ETS2Helper::Garage::GarageType>(stoi(line));
-                ETS2Helper::City::AllCities.push_back(new ETS2Helper::City(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType));
+                fileGarageType = static_cast<ets2helper::Garage::GarageType>(stoi(line));
+                ets2helper::City::AllCities.push_back(new ets2helper::City(fileCityName, fileCountryName, fileLatitude, fileLongitude, fileGarageType));
                 linenumber = 1;
                 break;
             default:
                 throw "Error reading from save file";
             }
         }
-        ETS2Helper::City::InitializeCities();
+        ets2helper::City::InitializeCities();
     }
     else
     {
@@ -220,13 +220,13 @@ int GetCountry()
 {
     uint countrychoice = 9999;
 
-    while((countrychoice < 1)| (countrychoice > ETS2Helper::Country::AllCountries.size()))
+    while((countrychoice < 1)| (countrychoice > ets2helper::Country::AllCountries.size()))
     {
         std::cout << std::endl;
 
-        for (uint i = 0; i < ETS2Helper::Country::AllCountries.size(); i++)
+        for (uint i = 0; i < ets2helper::Country::AllCountries.size(); i++)
         {
-            std::cout << "(" << i + 1 << ") " << ETS2Helper::Country::AllCountries[i]->Name << std::endl;
+            std::cout << "(" << i + 1 << ") " << ets2helper::Country::AllCountries[i]->Name << std::endl;
         }
 
         std::cout << std::endl;
@@ -236,7 +236,7 @@ int GetCountry()
     }
 
     std::cout << std::endl;
-    std::cout << "You chose " << ETS2Helper::Country::AllCountries[countrychoice - 1]->Name << std::endl;
+    std::cout << "You chose " << ets2helper::Country::AllCountries[countrychoice - 1]->Name << std::endl;
     std::cout << std::endl;
 
     return countrychoice - 1;
@@ -247,15 +247,15 @@ int GetCity(int countryIndex)
 {
     uint citychoice = 9999;
 
-    while((citychoice < 1)| (citychoice > ETS2Helper::City::AllCities.size()))
+    while((citychoice < 1)| (citychoice > ets2helper::City::AllCities.size()))
     {
         std::cout << std::endl;
-        std::cout << "Cities in " << ETS2Helper::Country::AllCountries[countryIndex]->Name << ":" << std::endl;
+        std::cout << "Cities in " << ets2helper::Country::AllCountries[countryIndex]->Name << ":" << std::endl;
         std::cout << std::endl;
 
-        for (uint i = 0; i < ETS2Helper::Country::AllCountries[countryIndex]->CountryCities.size(); i++)
+        for (uint i = 0; i < ets2helper::Country::AllCountries[countryIndex]->CountryCities.size(); i++)
         {
-            std::cout << "(" << i + 1 << ") " << ETS2Helper::Country::AllCountries[countryIndex]->CountryCities[i]->Name << std::endl;
+            std::cout << "(" << i + 1 << ") " << ets2helper::Country::AllCountries[countryIndex]->CountryCities[i]->Name << std::endl;
         }
 
         std::cout << std::endl;
@@ -265,7 +265,7 @@ int GetCity(int countryIndex)
     }
 
     std::cout << std::endl;
-    std::cout << "You chose " << ETS2Helper::Country::AllCountries[countryIndex]->CountryCities[citychoice - 1]->Name << std::endl;
+    std::cout << "You chose " << ets2helper::Country::AllCountries[countryIndex]->CountryCities[citychoice - 1]->Name << std::endl;
     std::cout << std::endl;
 
     return citychoice - 1;

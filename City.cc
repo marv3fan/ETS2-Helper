@@ -7,8 +7,9 @@
 #include "Country.h"
 #include "Geography.h"
 
-namespace ETS2Helper
+namespace ets2helper
 {
+
 std::vector <City*> City::GarageCities;
 std::vector <City*> City::NoGarageCities;
 std::vector <City*> City::AllCities;
@@ -385,4 +386,4 @@ void City::UpdateGarageVectors()
     }
 };
 
-}
+}  //namespace ets2helper
