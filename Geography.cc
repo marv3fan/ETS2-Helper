@@ -4,6 +4,8 @@
 
 #include "City.h"
 
+namespace ETS2Helper
+{
 const static double EarthRadiusKm = 6372.8;
 
 //TODO Geography can be its own library - we just need to break off the ETS2 Helper code.  We just need to change the parameters from City references to Coordinates.  We need a coordinate struct.
@@ -26,4 +28,5 @@ double Geography::GetDistance(City& CityFrom, City& CityTo)
     double comp = asin(sqrt(sin(diffLat / 2) * sin(diffLat / 2) + cos(latRad1) * cos(latRad2) * sin(diffLon/2) * sin(diffLon/2)));
 
     return 2 * EarthRadiusKm * comp;
+};
 }

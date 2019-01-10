@@ -6,36 +6,41 @@
 #include <string>
 #include <vector>
 
+#include "Country.h"
 #include "Garage.h"
 
-using namespace std;
-
+namespace ETS2Helper{
 class City
 {
 private:
     Garage::GarageType garageType;
     City* closestGarageCity;
 public:
-    string Name;
-    string CountryName;
+    static std::vector <City*> GarageCities;
+    static std::vector <City*> NoGarageCities;
+    static std::vector <City*> AllCities;
+    std::string Name;
+    std::string CountryName;
     const double Latitude;
     const double Longitude;
     double DistanceFromGarage = 200000;
 
-    City(string, string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
+    City(std::string, std::string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
 
-    void AddToVector(vector<City*>&);
+    void AddToVector(std::vector<City*>&);
     void CalculateNearestGarageDistance();
     void ChangeGarage();
+    static void InitializeCities();
     void NotifyCountry();
-    void RemoveFromVector(vector<City*>&);
+    static void PopulateCities();
+    void RemoveFromVector(std::vector<City*>&);
     void UpdateGarageVectors();
 
     inline void AnnounceClosestGarage()
     {
-        cout << endl;
-        cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << endl;
-        cout << endl;
+        std::cout << std::endl;
+        std::cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << std::endl;
+        std::cout << std::endl;
     };
 
     inline Garage::GarageType GarageType()
@@ -43,7 +48,7 @@ public:
         return garageType;
     };
 
-    inline void Serialize(ofstream& savefile)
+    inline void Serialize(std::ofstream& savefile)
     {
         savefile << Name << '\n';
         savefile << CountryName << '\n';
@@ -53,4 +58,5 @@ public:
     };
 };
 
+}
 #endif

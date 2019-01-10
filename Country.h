@@ -4,23 +4,28 @@
 #include <string>
 #include <vector>
 
-#include "City.h"
-
-using namespace std;
+namespace ETS2Helper
+{
+class City;
 
 class Country
 {
 public:
-    vector<City*> CountryCities;
-    string Name;
+    static std::vector<Country*> AllCountries;
+    std::vector<City*> CountryCities;
+    std::string Name;
 
-    inline Country(string CountryName)
+    static void PopulateCountries();
+
+    inline Country(std::string CountryName)
         : Name(CountryName)
     {}
 
     inline void AddCity(City* InCity)
     {
-        CountryCities.push_back(InCity);
+        Country::CountryCities.push_back(InCity);
     };
 };
+
+}
 #endif
