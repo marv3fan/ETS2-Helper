@@ -1,0 +1,3 @@
+[submodule "geography"]
+	path = geography
+	url = git@github.com:marv3fan/geography.git

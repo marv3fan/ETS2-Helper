@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "Country.h"
-#include "Geography.h"
-
+#include "geography/Geography.h"
+#include "geography/Coordinates.h"
 
 namespace ets2helper
 {
@@ -16,8 +16,11 @@ std::vector <City*> City::NoGarageCities;
 std::vector <City*> City::AllCities;
 
 City::City(std::string CityName, std::string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
-    : garageType(GarageType), Name(CityName), CountryName(InCountry), Latitude(Lat), Longitude(Lon)
+    : garageType(GarageType), Name(CityName), CountryName(InCountry)
 {
+    Coordinates.Latitude = Lat;
+    Coordinates.Longitude = Lon;
+
     if (garageType != Garage::GarageType::None)
     {
         DistanceFromGarage = 0;
@@ -50,9 +53,9 @@ void City::CalculateNearestGarageDistance()
 {
     for (City* c : City::GarageCities)
     {
-        if(Geography::GetDistance(*this, *c) < DistanceFromGarage)
+        if(geography::GetDistance(Coordinates, c->Coordinates) < DistanceFromGarage)
         {
-            DistanceFromGarage = Geography::GetDistance(*this, *c);
+            DistanceFromGarage = geography::GetDistance(Coordinates, c->Coordinates);
             closestGarageCity = c;
         }
     }
@@ -105,7 +108,6 @@ void City::ChangeGarage()
             validRequest = true;
             garageType = Garage::GarageType::None;
             UpdateGarageVectors();
-            //TODO: Change the distance to the function call to get Distances from garages;
             DistanceFromGarage = 200000;
             break;
         case 3:

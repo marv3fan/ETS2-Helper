@@ -77,7 +77,7 @@ bool PrintMenu()
             {
                 std::cout << std::endl;
                 std::cout << y->Name << ", " << c->Name << std::endl;
-                std::cout << y->Latitude << " " << y->Longitude << std::endl;
+                std::cout << y->Coordinates.Latitude << " " << y->Coordinates.Longitude << std::endl;
 
                 switch(y->GarageType())
                 {
@@ -103,6 +103,7 @@ bool PrintMenu()
         }
         break;
     case 5:
+        //TODO(9):  This will segfault if the data has not been populated yet.
     {
         int greatestCityDistance = 0;
         ets2helper::City* greatestCity = nullptr;

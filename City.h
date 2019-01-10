@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "geography/Coordinates.h"
+#include "geography/Geography.h"
 #include "Garage.h"
 
 namespace ets2helper
@@ -22,8 +24,7 @@ public:
     static std::vector <City*> AllCities;
     std::string Name;
     std::string CountryName;
-    const double Latitude;
-    const double Longitude;
+    geography::Coordinates Coordinates;
     double DistanceFromGarage = 200000;
 
     City(std::string, std::string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
@@ -54,8 +55,8 @@ public:
     {
         savefile << Name << '\n';
         savefile << CountryName << '\n';
-        savefile << Latitude << '\n';
-        savefile << Longitude << '\n';
+        savefile << Coordinates.Latitude << '\n';
+        savefile << Coordinates.Longitude << '\n';
         savefile << garageType << '\n';
     };
 };
