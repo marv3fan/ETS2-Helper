@@ -6,24 +6,29 @@
 class City;
 class Country;
 
-namespace ets2helper{
+namespace ets2helper {
 
-class Vector{
-public:
+class Vector {
+  public:
+    //Not copyable or movable
     Vector(const Vector&) = delete;
     Vector& operator=(const Vector&) = delete;
 
     static Vector* Instance();
-    std::vector <City*> GarageCities;
-    std::vector <City*> NoGarageCities;
+
+    std::vector <City*>& GetAllCities();
+    std::vector <Country*>& GetAllCountries();
+    std::vector <City*>& GetGarageCities();
+    std::vector <City*>& GetNoGarageCities();
+
+  private:
     std::vector <City*> AllCities;
     std::vector <Country*> AllCountries;
-
-
-
-private:
-    Vector(){};
+    std::vector <City*> GarageCities;
+    std::vector <City*> NoGarageCities;
     static Vector* vector_instance;
+
+    Vector() {};
 };
 
 } //namespace ets2helper

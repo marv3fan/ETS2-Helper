@@ -9,23 +9,33 @@
 namespace ets2helper {
 
 class Country {
-  public:
+  private:
     std::vector<City*> CountryCities;
     std::string Name;
 
+  public:
     static int GetCountryIndex();
     static void PopulateCountries();
-
-    Country(const Country&) = delete;
-    Country& operator=(const Country&) = delete;
 
     inline Country(std::string CountryName)
         : Name(CountryName)
     {}
+    //Not copyable or movable
+    Country(const Country&) = delete;
+    Country& operator=(const Country&) = delete;
+
 
     inline void AddCity(City* InCity) {
         Country::CountryCities.push_back(InCity);
     };
+
+    inline std::vector<City*> GetCountryCities() {
+        return CountryCities;
+    }
+
+    inline std::string GetName() {
+        return Name;
+    }
 };
 
 }  //namespace ets2helper

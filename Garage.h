@@ -4,8 +4,10 @@ namespace ets2helper {
 
 class Garage {
   public:
+    //Not copyable or movable
     Garage(const Garage&) = delete;
     Garage& operator=(const Garage&) = delete;
+
     enum GarageType {
         NotAllowed = 1,
         None,
@@ -14,8 +16,8 @@ class Garage {
         Large
     };
 
-    private:
-        Garage();
+  private:
+    Garage();
 };
 
 }  //namespace ets2helper

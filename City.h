@@ -15,13 +15,14 @@ class City {
   private:
     Garage::GarageType garageType;
     City* closestGarageCity;
-  public:
     std::string Name;
     std::string CountryName;
     geography::Coordinates Coordinates;
     double DistanceFromGarage = 200000;
+  public:
 
     City(std::string, std::string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
+    //Not copyable or movable
     City(const City&) = delete;
     City& operator=(const City&) = delete;
 
@@ -41,8 +42,25 @@ class City {
         std::cout << std::endl;
     };
 
-    inline Garage::GarageType GarageType() {
+
+    inline geography::Coordinates GetCoordinates() {
+        return Coordinates;
+    }
+
+    inline std::string GetCountryName() {
+        return CountryName;
+    };
+
+    inline double GetDistanceFromGarage() {
+        return DistanceFromGarage;
+    };
+
+    inline Garage::GarageType GetGarageType() {
         return garageType;
+    };
+
+    inline std::string GetName() {
+        return Name;
     };
 
     inline void Serialize(std::ofstream& savefile) {
