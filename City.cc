@@ -72,7 +72,7 @@ void City::ChangeGarage() {
     }
 
     bool validRequest = false;
-    while (validRequest) {
+    while (!validRequest) {
         std::cout << std::endl;
         std::cout << "(1) None" << std::endl;
         std::cout << "(2) Tiny" << std::endl;

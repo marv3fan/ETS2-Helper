@@ -22,6 +22,8 @@ class City {
     double DistanceFromGarage = 200000;
 
     City(std::string, std::string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
+    City(const City&) = delete;
+    City& operator=(const City&) = delete;
 
     void AddToVector(std::vector<City*>&);
     void CalculateNearestGarageDistance();

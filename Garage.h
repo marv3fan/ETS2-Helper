@@ -4,6 +4,8 @@ namespace ets2helper {
 
 class Garage {
   public:
+    Garage(const Garage&) = delete;
+    Garage& operator=(const Garage&) = delete;
     enum GarageType {
         NotAllowed = 1,
         None,
@@ -11,6 +13,9 @@ class Garage {
         Small,
         Large
     };
+
+    private:
+        Garage();
 };
 
 }  //namespace ets2helper

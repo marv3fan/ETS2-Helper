@@ -10,11 +10,16 @@ namespace ets2helper{
 
 class Vector{
 public:
+    Vector(const Vector&) = delete;
+    Vector& operator=(const Vector&) = delete;
+
     static Vector* Instance();
     std::vector <City*> GarageCities;
     std::vector <City*> NoGarageCities;
     std::vector <City*> AllCities;
     std::vector <Country*> AllCountries;
+
+
 
 private:
     Vector(){};

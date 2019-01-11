@@ -16,6 +16,9 @@ class Country {
     static int GetCountryIndex();
     static void PopulateCountries();
 
+    Country(const Country&) = delete;
+    Country& operator=(const Country&) = delete;
+
     inline Country(std::string CountryName)
         : Name(CountryName)
     {}
