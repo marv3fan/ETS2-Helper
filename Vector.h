@@ -16,10 +16,22 @@ class Vector {
 
     static Vector* Instance();
 
-    std::vector <City*>& GetAllCities();
-    std::vector <Country*>& GetAllCountries();
-    std::vector <City*>& GetGarageCities();
-    std::vector <City*>& GetNoGarageCities();
+    //TODO(13) We need to go back to inlining these
+    inline std::vector <City*>& GetAllCities() {
+    return AllCities;
+    };
+
+    inline std::vector <Country*>& GetAllCountries() {
+        return AllCountries;
+    };
+
+    inline std::vector <City*>& GetGarageCities() {
+        return GarageCities;
+    };
+
+    inline std::vector <City*>& GetNoGarageCities() {
+        return NoGarageCities;
+    };
 
   private:
     std::vector <City*> AllCities;

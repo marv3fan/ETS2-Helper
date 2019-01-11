@@ -10,20 +10,6 @@ Vector* Vector::Instance() {
     return vector_instance;
 }
 
-std::vector <City*>& Vector::GetAllCities() {
-    return AllCities;
-};
 
-std::vector <Country*>& Vector::GetAllCountries() {
-    return AllCountries;
-};
-
-std::vector <City*>& Vector::GetGarageCities() {
-    return GarageCities;
-};
-
-std::vector <City*>& Vector::GetNoGarageCities() {
-    return NoGarageCities;
-};
 
 }   //namespace ets2helper
