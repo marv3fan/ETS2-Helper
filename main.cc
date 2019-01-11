@@ -12,7 +12,7 @@
 //TODO(1): Code needs to be in Google C++ Style
 
 const std::string CitySaveFile = "Cities.dat";
-
+const std::string DefaultCityFile = "resources/DefaultCity.dat";
 
 int main() {
     //TODO(2): We should automatically detect the Cities.dat file.
@@ -47,12 +47,10 @@ bool PrintMenu() {
     switch(menuChoice) {
     case 1:
         //TODO(5): Safeguard against repopulating data.
-        ets2helper::City::PopulateCities();
-        std::cout << std::endl << "Created " << ets2helper::Vector::Instance()->GetAllCities().size() << " cities in " << ets2helper::Vector::Instance()->GetAllCountries().size() << " countries." << std::endl;
+        Deserialize(DefaultCityFile);
         break;
     case 2:
-        Deserialize();
-        std::cout << std::endl << "Created " << ets2helper::Vector::Instance()->GetAllCities().size() << " cities in " << ets2helper::Vector::Instance()->GetAllCountries().size() << " countries." << std::endl;
+        Deserialize(CitySaveFile);
         break;
     case 3: {
         int country = ets2helper::Country::GetCountryIndex();
@@ -149,11 +147,11 @@ void Serialize() {
     }
 }
 
-void Deserialize() {
+void Deserialize(std::string cityFile) {
     std::ifstream savefile;
-    savefile.open(CitySaveFile);
+    savefile.open(cityFile);
     if (savefile.is_open()) {
-        std::cout << "Opened save file..." << std::endl;
+        std::cout << "Opened file..." << std::endl;
 
         std::string fileCityName;
         std::string fileCountryName;
@@ -192,6 +190,8 @@ void Deserialize() {
             }
         }
         ets2helper::City::InitializeCities();
+
+        std::cout << std::endl << "Created " << ets2helper::Vector::Instance()->GetAllCities().size() << " cities in " << ets2helper::Vector::Instance()->GetAllCountries().size() << " countries." << std::endl;
     } else {
         throw "Error! File not open";
     }

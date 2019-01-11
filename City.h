@@ -56,7 +56,6 @@ class City {
     void UpdateGarageVectors();
 
     static void InitializeCities();
-    static void PopulateCities();
     inline void Serialize(std::ofstream& savefile) {
         savefile << Name << '\n';
         savefile << CountryName << '\n';
