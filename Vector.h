@@ -10,37 +10,40 @@ namespace ets2helper {
 
 class Vector {
   public:
-    //Not copyable or movable
-    Vector(const Vector&) = delete;
-    Vector& operator=(const Vector&) = delete;
+    //constructors
+    Vector(const Vector&) = delete; //Not copyable or movable
 
+    //assignment operators
+    Vector& operator=(const Vector&) = delete; //Not copyable or movable
+
+    //methods
+    //singleton
     static Vector* Instance();
 
-    //TODO(13) We need to go back to inlining these
+    //getters
     inline std::vector <City*>& GetAllCities() {
-    return AllCities;
+        return AllCities;
     };
-
+    inline std::vector <City*>& GetGarageCities() {
+        return GarageCities;
+    };
+    inline std::vector <City*>& GetNoGarageCities() {
+        return NoGarageCities;
+    };
     inline std::vector <Country*>& GetAllCountries() {
         return AllCountries;
     };
 
-    inline std::vector <City*>& GetGarageCities() {
-        return GarageCities;
-    };
-
-    inline std::vector <City*>& GetNoGarageCities() {
-        return NoGarageCities;
-    };
-
   private:
+    //constructors
+    Vector() {};
+
+    //data members
     std::vector <City*> AllCities;
     std::vector <Country*> AllCountries;
     std::vector <City*> GarageCities;
     std::vector <City*> NoGarageCities;
     static Vector* vector_instance;
-
-    Vector() {};
 };
 
 } //namespace ets2helper

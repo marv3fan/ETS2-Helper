@@ -9,33 +9,38 @@
 namespace ets2helper {
 
 class Country {
-  private:
-    std::vector<City*> CountryCities;
-    std::string Name;
-
   public:
-    static int GetCountryIndex();
-    static void PopulateCountries();
-
+    //constructors
     inline Country(std::string CountryName)
         : Name(CountryName)
     {}
-    //Not copyable or movable
-    Country(const Country&) = delete;
-    Country& operator=(const Country&) = delete;
+    Country(const Country&) = delete;   //Not copyable or movable
 
+    //assignment operators
+    Country& operator=(const Country&) = delete;    //Not copyable or movable
 
-    inline void AddCity(City* InCity) {
-        Country::CountryCities.push_back(InCity);
-    };
-
+    //methods
+    //getters
+    inline std::string GetName() {
+        return Name;
+    }
     inline std::vector<City*> GetCountryCities() {
         return CountryCities;
     }
 
-    inline std::string GetName() {
-        return Name;
-    }
+    //other methods
+    inline void AddCity(City* InCity) {
+        Country::CountryCities.push_back(InCity);
+    };
+
+    //data members
+    static int GetCountryIndex();
+    static void PopulateCountries();
+
+  private:
+    //data members
+    std::vector<City*> CountryCities;
+    std::string Name;
 };
 
 }  //namespace ets2helper

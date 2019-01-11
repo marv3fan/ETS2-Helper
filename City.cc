@@ -12,7 +12,7 @@ namespace ets2helper {
 
 
 City::City(std::string CityName, std::string InCountry, double Lat, double Lon, Garage::GarageType GarageType)
-    : garageType(GarageType), Name(CityName), CountryName(InCountry) {
+    : garageType(GarageType), CountryName(InCountry), Name(CityName) {
     Coordinates.Latitude = Lat;
     Coordinates.Longitude = Lon;
 

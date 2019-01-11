@@ -12,57 +12,51 @@
 namespace ets2helper {
 
 class City {
-  private:
-    Garage::GarageType garageType;
-    City* closestGarageCity;
-    std::string Name;
-    std::string CountryName;
-    geography::Coordinates Coordinates;
-    double DistanceFromGarage = 200000;
   public:
 
+    //constructors
     City(std::string, std::string, double, double, Garage::GarageType GarageType = Garage::GarageType::None);
-    //Not copyable or movable
-    City(const City&) = delete;
-    City& operator=(const City&) = delete;
+    City(const City&) = delete;    //Not copyable or movable
 
+    //assignment operators
+    City& operator=(const City&) = delete;  //Not copyable or movable
+
+    //vector work see Issue #12
     void AddToVector(std::vector<City*>&);
-    void CalculateNearestGarageDistance();
-    void ChangeGarage();
-    static int GetCityIndex(int);
-    static void InitializeCities();
-    void NotifyCountry();
-    static void PopulateCities();
     void RemoveFromVector(std::vector<City*>&);
-    void UpdateGarageVectors();
+    static int GetCityIndex(int);
 
+    //methods
+    //getters
+    inline geography::Coordinates GetCoordinates() {
+        return Coordinates;
+    };
+    inline double GetDistanceFromGarage() {
+        return DistanceFromGarage;
+    };
+    inline Garage::GarageType GetGarageType() {
+        return garageType;
+    };
+    inline std::string GetCountryName() {
+        return CountryName;
+    };
+    inline std::string GetName() {
+        return Name;
+    }
+
+    //other methods
     inline void AnnounceClosestGarage() {
         std::cout << std::endl;
         std::cout << "The closest garage to " << Name << " is the garage in " << closestGarageCity->Name << ", " << closestGarageCity->CountryName << " which is " << DistanceFromGarage << "km away." << std::endl;
         std::cout << std::endl;
     };
+    void CalculateNearestGarageDistance();
+    void ChangeGarage();
+    void NotifyCountry();
+    void UpdateGarageVectors();
 
-
-    inline geography::Coordinates GetCoordinates() {
-        return Coordinates;
-    }
-
-    inline std::string GetCountryName() {
-        return CountryName;
-    };
-
-    inline double GetDistanceFromGarage() {
-        return DistanceFromGarage;
-    };
-
-    inline Garage::GarageType GetGarageType() {
-        return garageType;
-    };
-
-    inline std::string GetName() {
-        return Name;
-    };
-
+    static void InitializeCities();
+    static void PopulateCities();
     inline void Serialize(std::ofstream& savefile) {
         savefile << Name << '\n';
         savefile << CountryName << '\n';
@@ -70,6 +64,16 @@ class City {
         savefile << Coordinates.Longitude << '\n';
         savefile << garageType << '\n';
     };
+
+
+  private:
+    //data members
+    City* closestGarageCity;
+    double DistanceFromGarage = 200000;
+    geography::Coordinates Coordinates;
+    Garage::GarageType garageType;
+    std::string CountryName;
+    std::string Name;
 };
 
 }  //namespace ets2helper
