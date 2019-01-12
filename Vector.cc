@@ -1,6 +1,7 @@
 #include "Vector.h"
 
 namespace ets2helper {
+
 Vector* Vector::vector_instance = NULL;
 
 Vector* Vector::Instance() {
@@ -9,7 +10,5 @@ Vector* Vector::Instance() {
 
     return vector_instance;
 }
-
-
 
 }   //namespace ets2helper

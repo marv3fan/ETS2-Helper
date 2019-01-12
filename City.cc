@@ -49,42 +49,12 @@ void City::CalculateNearestGarageDistance() {
 };
 
 void City::ChangeGarage() {
-    std::cout << "Current garage in " << Name << ", " << CountryName << ": ";
-
-    switch(garageType) {
-    case Garage::GarageType::None:
-        std::cout << "None" << std::endl;
-        break;
-    case Garage::GarageType::NotAllowed:
-        std::cout << "Garage Not Allowed" << std::endl;
-        std::cout << std::endl;
-        std::cout << "You cannot change the garage in a city not allowed to have garages.";
-        std::cout << std::endl;
-        return;
-    case Garage::GarageType::Tiny:
-        std::cout << "Tiny" << std::endl;
-        break;
-    case Garage::GarageType::Small:
-        std::cout << "Small" << std::endl;
-        break;
-    case Garage::GarageType::Large:
-        std::cout << "Large" << std::endl;
-        break;
-    }
-
+    PrintGarageType();
+    garageRequest = RequestGarageType();
     bool validRequest = false;
+
     while (!validRequest) {
-        std::cout << std::endl;
-        std::cout << "(1) None" << std::endl;
-        std::cout << "(2) Tiny" << std::endl;
-        std::cout << "(3) Small" << std::endl;
-        std::cout << "(4) Large" << std::endl;
-        std::cout << std::endl;
 
-        std::cout << "Choose which type of Garage:" << std::endl;
-        int garageRequest = 99;
-
-        std::cin >> garageRequest;
         switch(garageRequest + 1) {
         case 2:
             std::cout << "Removed garage from " << Name << std::endl;
@@ -164,6 +134,31 @@ void City::NotifyCountry() {
         }
 };
 
+void City::PrintGarageType() {
+    std::cout << "Current garage in " << Name << ", " << CountryName << ": ";
+
+    switch(garageType) {
+    case Garage::GarageType::None:
+        std::cout << "None" << std::endl;
+        break;
+    case Garage::GarageType::NotAllowed:
+        std::cout << "Garage Not Allowed" << std::endl;
+        std::cout << std::endl;
+        std::cout << "You cannot change the garage in a city not allowed to have garages.";
+        std::cout << std::endl;
+        return;
+    case Garage::GarageType::Tiny:
+        std::cout << "Tiny" << std::endl;
+        break;
+    case Garage::GarageType::Small:
+        std::cout << "Small" << std::endl;
+        break;
+    case Garage::GarageType::Large:
+        std::cout << "Large" << std::endl;
+        break;
+    }
+}
+
 void City::RemoveFromVector(std::vector<City*>& InVector) {
 
 
@@ -174,6 +169,22 @@ void City::RemoveFromVector(std::vector<City*>& InVector) {
         }
     }
 };
+
+int City::RequestGarageType() {
+    std::cout << std::endl;
+    std::cout << "(1) None" << std::endl;
+    std::cout << "(2) Tiny" << std::endl;
+    std::cout << "(3) Small" << std::endl;
+    std::cout << "(4) Large" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "Choose which type of Garage:" << std::endl;
+
+    int garageRequest = 99;
+    std::cin >> garageRequest;
+    return garageRequest;
+};
+
 
 void City::UpdateGarageVectors() {
     switch(garageType) {

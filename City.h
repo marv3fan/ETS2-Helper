@@ -44,6 +44,11 @@ class City {
         return Name;
     }
 
+    //Garage change methods
+    void ChangeGarage();
+    void PrintGarageType();
+    int RequestGarageType();
+
     //other methods
     inline void AnnounceClosestGarage() {
         std::cout << std::endl;
@@ -51,10 +56,8 @@ class City {
         std::cout << std::endl;
     };
     void CalculateNearestGarageDistance();
-    void ChangeGarage();
     void NotifyCountry();
     void UpdateGarageVectors();
-
     static void InitializeCities();
     inline void Serialize(std::ofstream& savefile) {
         savefile << Name << '\n';
