@@ -29,15 +29,7 @@ City::City(std::string CityName, std::string InCountry, double Lat, double Lon, 
 };
 
 //TODO(12): Refactor this and RemoveFromVector into Vector class
-void City::AddToVector(std::vector<City*>& InVector) {
 
-    for (uint i = 0; i < InVector.size(); i++) {
-        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
-            return;
-        }
-    }
-    InVector.push_back(this);
-};
 
 void City::CalculateNearestGarageDistance() {
     for (City* c : Vector::Instance()->GetGarageCities()) {
@@ -50,7 +42,7 @@ void City::CalculateNearestGarageDistance() {
 
 void City::ChangeGarage() {
     PrintGarageType();
-    garageRequest = RequestGarageType();
+    int garageRequest = RequestGarageType();
     bool validRequest = false;
 
     while (!validRequest) {
@@ -91,6 +83,15 @@ void City::ChangeGarage() {
     }
 };
 
+bool City::CheckInVector(const std::vector<City*>& InVector) {
+    for (uint i = 0; i < InVector.size(); i++) {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
+            return true;
+        }
+    }
+    return false;
+};
+
 int City::GetCityIndex(int country_index) {
     uint citychoice = 9999;
     while((citychoice < 1)| (citychoice > Vector::Instance()->GetAllCities().size())) {
@@ -113,6 +114,15 @@ int City::GetCityIndex(int country_index) {
     std::cout << std::endl;
 
     return citychoice - 1;
+}
+
+int City::GetVectorIndex(const std::vector<City*>& InVector) {
+    for (uint i = 0; i < InVector.size(); i++) {
+        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
+            return i;
+        }
+    }
+    throw "City not found in requested vector";
 }
 
 void City::InitializeCities() {
@@ -159,17 +169,6 @@ void City::PrintGarageType() {
     }
 }
 
-void City::RemoveFromVector(std::vector<City*>& InVector) {
-
-
-    for (uint i = 0; i < InVector.size(); i++) {
-        if((InVector[i]->Name == Name) && (InVector[i]->CountryName == CountryName)) {
-            InVector.erase(InVector.begin() + i);
-            return;
-        }
-    }
-};
-
 int City::RequestGarageType() {
     std::cout << std::endl;
     std::cout << "(1) None" << std::endl;
@@ -191,14 +190,22 @@ void City::UpdateGarageVectors() {
     case Garage::GarageType::NotAllowed:
         break;
     case Garage::GarageType::None:
-        RemoveFromVector(Vector::Instance()->GetGarageCities());
-        AddToVector(Vector::Instance()->GetNoGarageCities());
+        if(CheckInVector(Vector::Instance()->GetGarageCities())) {
+            Vector::Instance()->GetGarageCities().erase(Vector::Instance()->GetGarageCities().begin() + GetVectorIndex(Vector::Instance()->GetGarageCities()));
+        };
+        if(!CheckInVector(Vector::Instance()->GetNoGarageCities())) {
+            Vector::Instance()->GetNoGarageCities().push_back(this);
+        };
         break;
     case Garage::GarageType::Tiny:
     case Garage::GarageType::Small:
     case Garage::GarageType::Large:
-        RemoveFromVector(Vector::Instance()->GetNoGarageCities());
-        AddToVector(Vector::Instance()->GetGarageCities());
+        if(CheckInVector(Vector::Instance()->GetNoGarageCities())) {
+            Vector::Instance()->GetNoGarageCities().erase(Vector::Instance()->GetNoGarageCities().begin() + GetVectorIndex(Vector::Instance()->GetNoGarageCities()));
+        };
+        if(!CheckInVector(Vector::Instance()->GetGarageCities())) {
+            Vector::Instance()->GetGarageCities().push_back(this);
+        };
         break;
     }
 };

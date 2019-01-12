@@ -21,10 +21,10 @@ class City {
     //assignment operators
     City& operator=(const City&) = delete;  //Not copyable or movable
 
-    //vector work see Issue #12
-    void AddToVector(std::vector<City*>&);
-    void RemoveFromVector(std::vector<City*>&);
-    static int GetCityIndex(int);
+    //vector work
+    bool CheckInVector(const std::vector<City*>&);
+    int GetVectorIndex(const std::vector<City*>&);
+
 
     //methods
     //getters
@@ -45,9 +45,10 @@ class City {
     }
 
     //Garage change methods
+    static int GetCityIndex(int);
+    int RequestGarageType();
     void ChangeGarage();
     void PrintGarageType();
-    int RequestGarageType();
 
     //other methods
     inline void AnnounceClosestGarage() {
